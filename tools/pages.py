@@ -3,8 +3,27 @@ This is an authoring tool only; buyers edit the finished HTML files directly.
 Run from the repo root: python3 tools/pages.py
 """
 import os
+import re
 
-OUT = os.path.join(os.path.dirname(__file__), "..", "HTML")
+OUT = os.environ.get("OHMLY_OUT") or os.path.join(os.path.dirname(__file__), "..", "HTML")
+DEMO = os.path.join(os.path.dirname(__file__), "..", "HTML", "assets", "images", "demo")
+# Set OHMLY_PLACEHOLDERS=1 to ignore demo photos (used when packaging for ThemeForest).
+USE_PHOTOS = os.environ.get("OHMLY_PLACEHOLDERS") != "1"
+
+
+def use_demo_photos(html):
+    """Swap a placeholder SVG for a real photo when one exists in assets/images/demo/.
+    Example: drop demo/products/headphones.jpg and every headphones.svg on the site becomes that photo."""
+    if not USE_PHOTOS or not os.path.isdir(DEMO):
+        return html
+
+    def swap(m):
+        folder, name = m.group(1), m.group(2)
+        for ext in ("webp", "jpg", "jpeg", "png", "avif"):
+            if os.path.exists(os.path.join(DEMO, folder, f"{name}.{ext}")):
+                return f"assets/images/demo/{folder}/{name}.{ext}"
+        return m.group(0)
+    return re.sub(r"assets/images/(products|categories|hero|blog)/([a-z0-9-]+)\.svg", swap, html)
 BRAND = "Ohmly"
 IMG = "assets/images"
 
@@ -530,6 +549,7 @@ def page(filename, title, desc, body, current=None, body_class="", newsletter=Fa
 </body>
 </html>
 """
+    html = use_demo_photos(html)
     with open(os.path.join(OUT, filename), "w") as f:
         f.write(html)
 

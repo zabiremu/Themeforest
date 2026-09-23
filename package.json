@@ -6,7 +6,7 @@
     "build": "sass HTML/scss/style.scss HTML/assets/css/style.css --no-source-map",
     "build:min": "sass HTML/scss/style.scss HTML/assets/css/style.min.css --style=compressed --no-source-map",
     "watch": "sass --watch HTML/scss/style.scss HTML/assets/css/style.css",
-    "zip": "rm -f ohmly-html-template.zip && zip -r ohmly-html-template.zip HTML Documentation Licensing -x '*.gitkeep' '*.DS_Store'"
+    "zip": "bash tools/package.sh"
   },
   "devDependencies": {
     "sass": "^1.80.0"
