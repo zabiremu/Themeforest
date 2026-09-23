@@ -108,3 +108,4 @@ img[data-photo] { object-fit: cover; mix-blend-mode: multiply; }
   }
 }
 .deal__media { overflow: hidden; }
+.mosaic__tile--lead img[data-photo] { mix-blend-mode: normal; }

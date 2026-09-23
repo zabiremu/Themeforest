@@ -1711,6 +1711,10 @@ img[data-photo] {
   overflow: hidden;
 }
 
+.mosaic__tile--lead img[data-photo] {
+  mix-blend-mode: normal;
+}
+
 .overlay {
   position: fixed;
   inset: 0;
@@ -5115,6 +5119,7 @@ img[data-photo] {
   list-style: none;
   display: grid;
   gap: 20px;
+  margin-top: 28px;
 }
 .contact-list li {
   display: grid;

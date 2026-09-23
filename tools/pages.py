@@ -38,7 +38,7 @@ UNSPLASH = {
     "categories/cameras": "photo-1526170375885-4d8ecf77b99f",
     "hero/hero-headphones": "photo-1585298723682-7115561c51b7",
     "hero/laptop-on-dark": "photo-1496181133206-80ce9b88a853",
-    "hero/headphones-on-color": "photo-1618366712010-f4ae9c647dcb",
+    "hero/headphones-on-color": "photo-1583394838336-acd977736f90",
     "blog/blog-1": "photo-1505740420928-5e560c06d30e",
     "blog/blog-2": "photo-1496181133206-80ce9b88a853",
     "blog/blog-3": "photo-1527443224154-c4a3942d3acf",
@@ -48,8 +48,13 @@ UNSPLASH = {
 }
 
 
-def unsplash(photo_id, folder):
+PORTRAIT = {"hero/headphones-on-color"}  # slots shown in a tall frame
+
+
+def unsplash(photo_id, folder, name=""):
     size = "w=1200&h=750" if folder in ("blog", "hero") else "w=800&h=800"
+    if f"{folder}/{name}" in PORTRAIT:
+        size = "w=900&h=1100"
     return f"https://images.unsplash.com/{photo_id}?{size}&fit=crop&crop=entropy&auto=format&q=75"
 
 
@@ -67,7 +72,7 @@ def use_demo_photos(html):
                 return f'src="assets/images/demo/{folder}/{name}.{ext}" data-photo data-fallback="{svg[5:-1]}"'
         key = f"{folder}/{name}"
         if key in UNSPLASH:
-            return f'src="{unsplash(UNSPLASH[key], folder).replace("&", "&amp;")}" data-photo data-fallback="{svg[5:-1]}"'
+            return f'src="{unsplash(UNSPLASH[key], folder, name).replace("&", "&amp;")}" data-photo data-fallback="{svg[5:-1]}"'
         return svg
     html = re.sub(r'(?<![-\w])src="assets/images/(products|categories|hero|blog)/([a-z0-9-]+)\.svg"', swap, html)
 
