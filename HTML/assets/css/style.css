@@ -5305,17 +5305,25 @@ img[data-photo] {
   max-width: 520px;
 }
 .error-page .code {
-  font-size: clamp(5rem, 14vw, 9rem);
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.05em;
-  font-variant-numeric: tabular-nums;
+  font-family: var(--font-display);
+  font-size: clamp(6rem, 26vw, 11rem);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--color-text);
+  background: linear-gradient(transparent 55%, var(--color-accent) 55%, var(--color-accent) 85%, transparent 85%);
+  padding: 0 0.08em;
 }
 .error-page p {
   color: var(--color-muted);
 }
-.error-page .search-inline {
-  width: 100%;
+.error-page .search-pill {
+  max-width: 440px;
+  margin-top: 6px;
+}
+.error-page .btn-row {
+  justify-content: center;
 }
 
 .coming-soon {
@@ -5361,19 +5369,43 @@ img[data-photo] {
   max-width: 440px;
 }
 
-.header-search.search-inline {
+.search-pill {
   position: relative;
-  display: block;
-  padding: 0;
-  border: 0;
-  background: none;
-}
-.header-search.search-inline input {
   width: 100%;
 }
-.header-search.search-inline button {
-  right: 0;
-  top: 0;
+.search-pill input {
+  width: 100%;
+  height: 52px;
+  padding: 0 56px 0 20px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+}
+.search-pill input:focus {
+  outline: none;
+  border-color: var(--color-text);
+  box-shadow: 0 0 0 4px rgba(198, 244, 50, 0.45);
+}
+.search-pill button {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--color-text);
+  color: #fff;
+  transition: background 0.2s, color 0.2s;
+}
+.search-pill button svg {
+  width: 18px;
+  height: 18px;
+}
+.search-pill button:hover {
+  background: var(--color-accent);
+  color: var(--color-text);
 }
 
 .section--tight > .container + .container {

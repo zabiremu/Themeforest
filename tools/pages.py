@@ -1579,7 +1579,7 @@ def blog_sidebar():
 <aside class="sidebar" aria-label="Blog sidebar">
   <div class="widget">
     <h2>Search</h2>
-    <form class="header-search search-inline" action="blog.html" role="search">
+    <form class="search-pill" action="blog.html" role="search">
       <label class="visually-hidden" for="blog-search">Search articles</label>
       <input id="blog-search" type="search" name="q" placeholder="Search articles">
       <button type="submit" aria-label="Search">{icon('search')}</button>
@@ -1672,7 +1672,7 @@ def error_page():
     <p class="code">404</p>
     <h1>This page is missing</h1>
     <p>The link may be broken, or the page may have moved. Try searching, or head back to the shop.</p>
-    <form class="header-search search-inline" action="shop.html" role="search">
+    <form class="search-pill" action="shop.html" role="search">
       <label class="visually-hidden" for="error-search">Search products</label>
       <input id="error-search" type="search" name="q" placeholder="Search products">
       <button type="submit" aria-label="Search">{icon('search')}</button>

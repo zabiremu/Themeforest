@@ -61,8 +61,10 @@
 /* 404 and coming soon */
 .error-page { min-height: 60vh; display: grid; place-items: center; text-align: center; padding-block: 80px;
   &__inner { display: grid; gap: 18px; justify-items: center; max-width: 520px; }
-  .code { font-size: clamp(5rem, 14vw, 9rem); font-weight: 700; line-height: 1; letter-spacing: -0.05em; font-variant-numeric: tabular-nums; }
-  p { color: var(--color-muted); } .search-inline { width: 100%; } }
+  .code { font-family: var(--font-display); font-size: clamp(6rem, 26vw, 11rem); font-weight: 800; line-height: 0.9; letter-spacing: -0.06em;
+    color: transparent; -webkit-text-stroke: 2px var(--color-text); background: linear-gradient(transparent 55%, var(--color-accent) 55%, var(--color-accent) 85%, transparent 85%); padding: 0 0.08em; }
+  p { color: var(--color-muted); } .search-pill { max-width: 440px; margin-top: 6px; }
+  .btn-row { justify-content: center; } }
 .coming-soon { min-height: 100vh; display: grid; grid-template-rows: auto 1fr auto; padding: 24px;
   @include up(md) { padding: 40px; }
   header, footer { display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: var(--fs-sm); color: var(--color-muted); }
@@ -71,6 +73,12 @@
   &__inner { display: grid; gap: 24px; justify-items: center; max-width: 560px; }
   h1 { font-size: clamp(2.4375rem, 5vw, var(--fs-4xl)); } .newsletter-form { width: 100%; max-width: 440px; } }
 
-.header-search.search-inline { position: relative; display: block; padding: 0; border: 0; background: none;
-  input { width: 100%; } button { right: 0; top: 0; } }
+// Standalone search field (404 page, blog sidebar). Independent of the header search,
+// which turns into a drop-down panel on phones.
+.search-pill { position: relative; width: 100%;
+  input { width: 100%; height: 52px; padding: 0 56px 0 20px; border: 1px solid var(--color-border); border-radius: var(--radius-pill); background: var(--color-surface);
+    &:focus { outline: none; border-color: var(--color-text); box-shadow: 0 0 0 4px rgba(198, 244, 50, 0.45); } }
+  button { position: absolute; right: 5px; top: 5px; width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%; background: var(--color-text); color: #fff;
+    transition: background 0.2s, color 0.2s; svg { width: 18px; height: 18px; }
+    &:hover { background: var(--color-accent); color: var(--color-text); } } }
 .section--tight > .container + .container { margin-top: 24px; }
