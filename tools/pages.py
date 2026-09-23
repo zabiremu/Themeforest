@@ -285,7 +285,7 @@ def ticker(items=None):
     lis = "".join(f"<li>{i}</li>" for i in items)
     return f"""
 <!-- Ticker Start -->
-<div class="ticker" aria-label="Store promises"><div class="ticker__track"><ul>{lis}</ul><ul aria-hidden="true">{lis}</ul></div></div>
+<div class="ticker" role="marquee" aria-label="Store promises"><div class="ticker__track"><ul>{lis}</ul><ul aria-hidden="true">{lis}</ul></div></div>
 <!-- Ticker End -->"""
 
 
