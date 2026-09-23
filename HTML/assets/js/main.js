@@ -500,6 +500,19 @@ const SETTINGS = {
   document.addEventListener("click", (e) => {
     const remove = e.target.closest("[data-remove-item]");
     if (!remove) return;
+    // Mini-cart: drop the item, then update counts and subtotal
+    const item = remove.closest(".mini-cart-item");
+    if (item) {
+      const list = item.parentElement;
+      item.remove();
+      bump("[data-cart-count]", -1);
+      const total = $$(".mini-cart-item", list).reduce((sum, li) => sum + Number(li.dataset.price || 0), 0);
+      const out = $("[data-mini-subtotal]");
+      if (out) out.textContent = "$" + total.toFixed(2);
+      const empty = $("[data-mini-empty]");
+      if (empty) empty.hidden = list.children.length > 0;
+      return;
+    }
     const row = remove.closest("tr, .product-card");
     if (row) row.remove();
     if (remove.closest("[data-wishlist-page]")) bump("[data-wishlist-count]", -1);

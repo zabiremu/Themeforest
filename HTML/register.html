@@ -708,76 +708,115 @@
     <!-- Mobile Menu End -->
 
     <!-- Mini Cart Start -->
-    <div class="drawer" id="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="cart-drawer-title">
+    <div
+      class="drawer cart-drawer"
+      id="cart-drawer"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="cart-drawer-title"
+    >
       <div class="drawer__head">
-        <h2 id="cart-drawer-title">Your cart</h2>
-        <button class="icon-btn" type="button" data-close aria-label="Close cart">
+        <h2 id="cart-drawer-title">Your cart <span class="cart-drawer__count" data-cart-count>3</span></h2>
+        <button class="icon-btn cart-drawer__close" type="button" data-close aria-label="Close cart">
           <svg aria-hidden="true"><use href="#i-close"></use></svg>
         </button>
       </div>
       <div class="drawer__body">
         <div class="free-shipping">
-          <p>You have unlocked free shipping.</p>
-          <div class="meter"><span class="w-100"></span></div>
+          <svg aria-hidden="true"><use href="#i-truck"></use></svg>
+          <div>
+            <p><strong>Free shipping unlocked.</strong> Your order ships free.</p>
+            <div class="meter"><span class="w-100"></span></div>
+          </div>
         </div>
         <ul class="mini-cart">
-          <li class="mini-cart-item">
-            <img
-              src="https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=800&amp;h=800&amp;fit=crop&amp;crop=entropy&amp;auto=format&amp;q=75"
-              data-photo
-              data-fallback="assets/images/products/headphones.svg"
-              alt=""
-              width="400"
-              height="400"
-              loading="lazy">
-            <div>
+          <li class="mini-cart-item" data-price="119">
+            <a class="mini-cart-item__media" href="product-details.html"
+              ><img
+                src="https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=800&amp;h=800&amp;fit=crop&amp;crop=entropy&amp;auto=format&amp;q=75"
+                data-photo
+                data-fallback="assets/images/products/headphones.svg"
+                alt=""
+                width="400"
+                height="400"
+                loading="lazy"></a>
+            <div class="mini-cart-item__info">
               <h3><a href="product-details.html">Aero Wireless Headphones</a></h3>
-              <p>1 &times; $119</p>
+              <p>Qty 1</p>
             </div>
-            <button class="icon-btn" type="button" aria-label="Remove Aero Wireless Headphones">
-              <svg aria-hidden="true"><use href="#i-trash"></use></svg>
-            </button>
+            <div class="mini-cart-item__end">
+              <strong>$119</strong
+              ><button
+                class="mini-cart-item__remove"
+                type="button"
+                data-remove-item
+                aria-label="Remove Aero Wireless Headphones"
+              >
+                <svg aria-hidden="true"><use href="#i-trash"></use></svg>
+              </button>
+            </div>
           </li>
-          <li class="mini-cart-item">
-            <img
-              src="https://images.unsplash.com/photo-1632200004922-bc18602c79fc?w=800&amp;h=800&amp;fit=crop&amp;crop=entropy&amp;auto=format&amp;q=75"
-              data-photo
-              data-fallback="assets/images/products/earbuds.svg"
-              alt=""
-              width="400"
-              height="400"
-              loading="lazy">
-            <div>
+          <li class="mini-cart-item" data-price="79">
+            <a class="mini-cart-item__media" href="product-details.html"
+              ><img
+                src="https://images.unsplash.com/photo-1632200004922-bc18602c79fc?w=800&amp;h=800&amp;fit=crop&amp;crop=entropy&amp;auto=format&amp;q=75"
+                data-photo
+                data-fallback="assets/images/products/earbuds.svg"
+                alt=""
+                width="400"
+                height="400"
+                loading="lazy"></a>
+            <div class="mini-cart-item__info">
               <h3><a href="product-details.html">Pulse Earbuds</a></h3>
-              <p>1 &times; $79</p>
+              <p>Qty 1</p>
             </div>
-            <button class="icon-btn" type="button" aria-label="Remove Pulse Earbuds">
-              <svg aria-hidden="true"><use href="#i-trash"></use></svg>
-            </button>
+            <div class="mini-cart-item__end">
+              <strong>$79</strong
+              ><button class="mini-cart-item__remove" type="button" data-remove-item aria-label="Remove Pulse Earbuds">
+                <svg aria-hidden="true"><use href="#i-trash"></use></svg>
+              </button>
+            </div>
           </li>
-          <li class="mini-cart-item">
-            <img
-              src="https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=800&amp;h=800&amp;fit=crop&amp;crop=entropy&amp;auto=format&amp;q=75"
-              data-photo
-              data-fallback="assets/images/products/powerbank.svg"
-              alt=""
-              width="400"
-              height="400"
-              loading="lazy">
-            <div>
+          <li class="mini-cart-item" data-price="49">
+            <a class="mini-cart-item__media" href="product-details.html"
+              ><img
+                src="https://images.unsplash.com/photo-1745889763764-a13bc5028c4d?w=800&amp;h=800&amp;fit=crop&amp;crop=entropy&amp;auto=format&amp;q=75"
+                data-photo
+                data-fallback="assets/images/products/powerbank.svg"
+                alt=""
+                width="400"
+                height="400"
+                loading="lazy"></a>
+            <div class="mini-cart-item__info">
               <h3><a href="product-details.html">Drift Power Bank</a></h3>
-              <p>1 &times; $49</p>
+              <p>Qty 1</p>
             </div>
-            <button class="icon-btn" type="button" aria-label="Remove Drift Power Bank">
-              <svg aria-hidden="true"><use href="#i-trash"></use></svg>
-            </button>
+            <div class="mini-cart-item__end">
+              <strong>$49</strong
+              ><button
+                class="mini-cart-item__remove"
+                type="button"
+                data-remove-item
+                aria-label="Remove Drift Power Bank"
+              >
+                <svg aria-hidden="true"><use href="#i-trash"></use></svg>
+              </button>
+            </div>
           </li>
         </ul>
+        <p class="mini-cart-empty" data-mini-empty hidden>
+          Your cart is empty. <a class="text-btn" href="shop.html">Start shopping</a>
+        </p>
       </div>
       <div class="drawer__foot">
-        <p class="summary-row summary-row--total"><span>Subtotal</span><span>$247</span></p>
-        <a class="btn btn--primary btn--block" href="checkout.html">Checkout</a>
-        <a class="btn btn--light btn--block" href="cart.html">View cart</a>
+        <p class="summary-row summary-row--total"><span>Subtotal</span><span data-mini-subtotal>$247.00</span></p>
+        <p class="cart-drawer__note">Taxes and shipping are calculated at checkout.</p>
+        <div class="cart-drawer__actions">
+          <a class="btn btn--light" href="cart.html">View cart</a>
+          <a class="btn btn--primary" href="checkout.html"
+            >Checkout<svg aria-hidden="true"><use href="#i-arrow-right"></use></svg
+          ></a>
+        </div>
       </div>
     </div>
     <!-- Mini Cart End -->

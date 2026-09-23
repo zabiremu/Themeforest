@@ -28,7 +28,7 @@ UNSPLASH = {
     "products/tablet": "photo-1544244015-0df4b3ffc6b0",
     "products/camera": "photo-1526170375885-4d8ecf77b99f",
     "products/keyboard": "photo-1587829741301-dc798b83add3",
-    "products/powerbank": "photo-1609091839311-d5365f9ff1c5",
+    "products/powerbank": "photo-1745889763764-a13bc5028c4d",
     "products/monitor": "photo-1527443224154-c4a3942d3acf",
     "categories/audio": "photo-1618366712010-f4ae9c647dcb",
     "categories/phones": "photo-1511707171634-5f897ff02aa9",
@@ -475,24 +475,32 @@ def footer():
 
 def mini_cart():
     items = [("aero", 1), ("pulse", 1), ("drift", 1)]
-    lis = "".join(f'<li class="mini-cart-item"><img src="{IMG}/products/{P[k]["img"]}.svg" alt="" width="400" height="400" loading="lazy">'
-                  f'<div><h3><a href="product-details.html">{P[k]["name"]}</a></h3><p>{q} &times; {fmt(P[k]["price"])}</p></div>'
-                  f'<button class="icon-btn" type="button" aria-label="Remove {P[k]["name"]}">{icon("trash")}</button></li>' for k, q in items)
+    lis = "".join(f'<li class="mini-cart-item" data-price="{P[k]["price"] * q}"><a class="mini-cart-item__media" href="product-details.html"><img src="{IMG}/products/{P[k]["img"]}.svg" alt="" width="400" height="400" loading="lazy"></a>'
+                  f'<div class="mini-cart-item__info"><h3><a href="product-details.html">{P[k]["name"]}</a></h3><p>Qty {q}</p></div>'
+                  f'<div class="mini-cart-item__end"><strong>{fmt(P[k]["price"] * q)}</strong>'
+                  f'<button class="mini-cart-item__remove" type="button" data-remove-item aria-label="Remove {P[k]["name"]}">{icon("trash")}</button></div></li>' for k, q in items)
     return f"""
 <!-- Mini Cart Start -->
-<div class="drawer" id="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="cart-drawer-title">
+<div class="drawer cart-drawer" id="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="cart-drawer-title">
   <div class="drawer__head">
-    <h2 id="cart-drawer-title">Your cart</h2>
-    <button class="icon-btn" type="button" data-close aria-label="Close cart">{icon('close')}</button>
+    <h2 id="cart-drawer-title">Your cart <span class="cart-drawer__count" data-cart-count>3</span></h2>
+    <button class="icon-btn cart-drawer__close" type="button" data-close aria-label="Close cart">{icon('close')}</button>
   </div>
   <div class="drawer__body">
-    <div class="free-shipping"><p>You have unlocked free shipping.</p><div class="meter"><span class="w-100"></span></div></div>
+    <div class="free-shipping">
+      {icon('truck')}
+      <div><p><strong>Free shipping unlocked.</strong> Your order ships free.</p><div class="meter"><span class="w-100"></span></div></div>
+    </div>
     <ul class="mini-cart">{lis}</ul>
+    <p class="mini-cart-empty" data-mini-empty hidden>Your cart is empty. <a class="text-btn" href="shop.html">Start shopping</a></p>
   </div>
   <div class="drawer__foot">
-    <p class="summary-row summary-row--total"><span>Subtotal</span><span>$247</span></p>
-    <a class="btn btn--primary btn--block" href="checkout.html">Checkout</a>
-    <a class="btn btn--light btn--block" href="cart.html">View cart</a>
+    <p class="summary-row summary-row--total"><span>Subtotal</span><span data-mini-subtotal>$247.00</span></p>
+    <p class="cart-drawer__note">Taxes and shipping are calculated at checkout.</p>
+    <div class="cart-drawer__actions">
+      <a class="btn btn--light" href="cart.html">View cart</a>
+      <a class="btn btn--primary" href="checkout.html">Checkout{icon('arrow-right')}</a>
+    </div>
   </div>
 </div>
 <!-- Mini Cart End -->"""

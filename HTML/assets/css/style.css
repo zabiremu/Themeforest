@@ -2026,33 +2026,155 @@ img[data-photo] {
     transform: translateY(-4px);
   }
 }
+.cart-drawer .drawer__head h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  letter-spacing: -0.03em;
+}
+.cart-drawer__count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 26px;
+  height: 26px;
+  padding: 0 7px;
+  border-radius: 13px;
+  background: var(--color-accent);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+.cart-drawer__close {
+  background: var(--color-bg);
+}
+.cart-drawer .drawer__foot {
+  gap: 10px;
+  padding-bottom: calc(20px + env(safe-area-inset-bottom));
+}
+.cart-drawer__note {
+  font-size: var(--fs-xs);
+  color: var(--color-muted);
+}
+.cart-drawer__actions {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 10px;
+  margin-top: 4px;
+}
+.cart-drawer__actions .btn {
+  padding-inline: 12px;
+}
+
+.free-shipping {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 14px;
+  border-radius: var(--radius-md);
+  background: var(--color-primary-soft);
+  font-size: var(--fs-sm);
+  color: var(--color-text);
+}
+.free-shipping > svg {
+  width: 40px;
+  height: 40px;
+  padding: 10px;
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+.free-shipping .meter {
+  height: 6px;
+  margin-top: 8px;
+  border-radius: 3px;
+  background: rgba(13, 14, 18, 0.08);
+  overflow: hidden;
+}
+.free-shipping .meter span {
+  display: block;
+  height: 100%;
+  background: var(--color-text);
+  border-radius: 3px;
+}
+
 .mini-cart {
   list-style: none;
   display: grid;
-  gap: 16px;
 }
 
 .mini-cart-item {
   display: grid;
-  grid-template-columns: 72px 1fr auto;
+  grid-template-columns: 76px minmax(0, 1fr) auto;
   gap: 14px;
-  align-items: start;
+  align-items: center;
+  padding-block: 14px;
+  border-top: 1px dashed var(--color-border);
 }
-.mini-cart-item img {
-  width: 72px;
-  height: 72px;
-  padding: 8px;
-  background: var(--color-surface-alt);
+.mini-cart-item:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+.mini-cart-item__media {
+  display: block;
+  width: 76px;
+  height: 76px;
   border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 40%, #fff, var(--color-surface-alt) 70%);
+}
+.mini-cart-item__media img {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  object-fit: contain;
+}
+.mini-cart-item__media img[data-photo] {
+  padding: 0;
+  object-fit: cover;
 }
 .mini-cart-item h3 {
   font-size: 15px;
-  letter-spacing: 0;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+.mini-cart-item h3 a:hover {
+  color: var(--color-muted);
 }
 .mini-cart-item p {
-  font-size: var(--fs-sm);
+  margin-top: 4px;
+  font-family: var(--font-mono);
+  font-size: 12px;
   color: var(--color-muted);
+}
+.mini-cart-item__end {
+  display: grid;
+  justify-items: end;
+  gap: 6px;
+}
+.mini-cart-item__end strong {
   font-variant-numeric: tabular-nums;
+  font-size: 15px;
+}
+.mini-cart-item__remove {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--color-muted);
+  transition: background 0.2s, color 0.2s;
+}
+.mini-cart-item__remove svg {
+  width: 16px;
+  height: 16px;
+}
+.mini-cart-item__remove:hover {
+  background: #FDEBE7;
+  color: var(--color-sale);
 }
 
 .summary-row {
@@ -2064,24 +2186,6 @@ img[data-photo] {
 .summary-row--total {
   font-weight: 700;
   font-size: var(--fs-lg);
-}
-
-.free-shipping {
-  font-size: var(--fs-sm);
-  color: var(--color-muted);
-}
-.free-shipping .meter {
-  height: 6px;
-  margin-top: 8px;
-  border-radius: 3px;
-  background: var(--color-bg);
-  overflow: hidden;
-}
-.free-shipping .meter span {
-  display: block;
-  height: 100%;
-  background: var(--color-primary);
-  border-radius: 3px;
 }
 
 .modal {
@@ -2267,6 +2371,15 @@ img[data-photo] {
     transform: translateX(260%);
   }
 }
+.mini-cart-empty {
+  padding: 32px 0;
+  text-align: center;
+  color: var(--color-muted);
+}
+.mini-cart-empty .text-btn {
+  margin-left: 4px;
+}
+
 .page-banner {
   position: relative;
   overflow: hidden;
