@@ -3,7 +3,7 @@
   <rect x="20" y="40" width="680" height="30" fill="#16181D"/>
   <text x="360" y="60" fill="#fff" font-size="12" text-anchor="middle">Free shipping on orders over $99</text>
   <rect x="20" y="70" width="680" height="64" fill="#fff" stroke="#DADDE3"/>
-  <text x="44" y="108" fill="#16181D" font-size="20" font-weight="700">[Name]</text>
+  <text x="44" y="108" fill="#16181D" font-size="20" font-weight="700">ohmly</text>
   <g fill="#16181D" font-size="14"><text x="190" y="107">Home</text><text x="244" y="107">Shop</text><text x="296" y="107">Deals</text><text x="350" y="107">Blog</text><text x="398" y="107">Contact</text></g>
   <rect x="480" y="88" width="120" height="30" rx="8" fill="#F4F5F7" stroke="#DADDE3"/>
   <text x="494" y="108" fill="#5B616E" font-size="13">Search…</text>
