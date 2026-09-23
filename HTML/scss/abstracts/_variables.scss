@@ -1,0 +1,16 @@
+// Design tokens — change here, rebuild CSS
+$color-primary:   #1f4e79;
+$color-secondary: #c89b3c;
+$color-text:      #2b2b2b;
+$color-muted:     #6b7280;
+$color-bg:        #ffffff;
+$color-border:    #e5e7eb;
+
+$font-heading: "Playfair Display", Georgia, serif;
+$font-body:    "Inter", system-ui, -apple-system, sans-serif;
+
+$container-max: 1200px;
+$radius: 6px;
+$transition: 0.25s ease;
+
+$breakpoints: (sm: 576px, md: 768px, lg: 992px, xl: 1200px);

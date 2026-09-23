@@ -1,0 +1,22 @@
+/*------------------------------------------------------------------
+  Template Name : [Template Name]
+  Author        : Zabir Raihan
+  Version       : 1.0.0
+
+  TABLE OF CONTENTS
+  1. Base (reset, typography)
+  2. Layout (container, header, footer)
+  3. Components (buttons, forms)
+  4. Pages (home, about, contact)
+  Tokens: scss/abstracts/_variables.scss
+-------------------------------------------------------------------*/
+@use "base/reset";
+@use "base/typography";
+@use "layout/container";
+@use "layout/header";
+@use "layout/footer";
+@use "components/buttons";
+@use "components/forms";
+@use "pages/home";
+@use "pages/about";
+@use "pages/contact";

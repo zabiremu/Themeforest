@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[Template Name] — Documentation</title>
+<style>
+ body{font-family:system-ui,sans-serif;max-width:860px;margin:0 auto;padding:2rem 1rem;line-height:1.7;color:#222}
+ nav a{margin-right:1rem} code,pre{background:#f4f4f5;padding:.15rem .4rem;border-radius:4px} pre{padding:1rem;overflow-x:auto}
+ h2{margin-top:2.5rem;border-bottom:1px solid #e5e7eb;padding-bottom:.4rem}
+</style>
+</head>
+<body>
+<h1>[Template Name] Documentation</h1>
+<p>Thank you for purchasing. If you have questions beyond this guide, contact us via our ThemeForest profile page.</p>
+<nav><a href="#install">Installation</a><a href="#structure">Structure</a><a href="#html">HTML</a><a href="#css">CSS / SCSS</a><a href="#js">JavaScript</a><a href="#credits">Credits</a></nav>
+
+<h2 id="install">Installation</h2>
+<p>Upload the contents of the <code>HTML</code> folder to your server. No build step is needed to use the template.</p>
+
+<h2 id="structure">File structure</h2>
+<pre>HTML/
+├── assets/ (css, fonts, images, js)
+├── scss/
+├── index.html
+├── about.html
+└── contact.html</pre>
+
+<h2 id="html">HTML structure</h2>
+<pre>&lt;header class="site-header"&gt;...&lt;/header&gt;
+&lt;main class="main-content"&gt;
+   &lt;section class="hero-slider"&gt;...&lt;/section&gt;
+&lt;/main&gt;
+&lt;footer class="site-footer"&gt;...&lt;/footer&gt;</pre>
+
+<h2 id="css">CSS / SCSS</h2>
+<p>Colors, fonts and spacing live in <code>scss/abstracts/_variables.scss</code>. To recompile:</p>
+<pre>npm install
+npm run build   # or: npm run watch</pre>
+
+<h2 id="js">JavaScript</h2>
+<p><code>assets/js/main.js</code> handles the mobile menu and active link highlighting.</p>
+
+<h2 id="credits">Sources and credits</h2>
+<ul>
+ <li>Google Fonts: Inter, Playfair Display (SIL Open Font License)</li>
+ <li>Images: [list every image source and license]</li>
+</ul>
+</body>
+</html>

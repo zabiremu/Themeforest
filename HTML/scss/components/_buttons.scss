@@ -1,0 +1,8 @@
+@use "sass:color";
+@use "../abstracts" as *;
+.btn {
+  display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; border-radius: $radius;
+  font-weight: 600; transition: background $transition, color $transition;
+  &--primary { background: $color-primary; color: #fff; &:hover { background: color.adjust($color-primary, $lightness: -8%); } }
+  &--outline { border: 1px solid $color-primary; color: $color-primary; &:hover { background: $color-primary; color: #fff; } }
+}

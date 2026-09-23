@@ -1,0 +1,4 @@
+@use "sass:color";
+@use "../abstracts" as *;
+.hero-slider { min-height: 80vh; @include flex-center; background: color.adjust($color-primary, $lightness: 60%); }
+.about-us { /* about section styles */ }

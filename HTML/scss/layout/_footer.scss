@@ -1,0 +1,6 @@
+@use "sass:color";
+@use "../abstracts" as *;
+.site-footer {
+  background: $color-primary; color: #fff; padding-block: 3rem 1.5rem;
+  &__bottom { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(255, 255, 255, 0.15); font-size: 0.875rem; }
+}

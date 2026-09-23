@@ -1,0 +1,8 @@
+@use "../abstracts" as *;
+
+body { font-family: $font-body; color: $color-text; background: $color-bg; line-height: 1.6; }
+h1, h2, h3, h4, h5, h6 { font-family: $font-heading; line-height: 1.2; }
+:focus-visible { outline: 2px solid $color-secondary; outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

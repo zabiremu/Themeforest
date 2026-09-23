@@ -1,0 +1,3 @@
+@use "../abstracts" as *;
+.container { width: 100%; max-width: $container-max; margin-inline: auto; padding-inline: 1rem; }
+.section { padding-block: 4rem; @include up(lg) { padding-block: 6rem; } }

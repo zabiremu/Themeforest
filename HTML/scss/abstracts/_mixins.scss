@@ -1,0 +1,7 @@
+@use "sass:map";
+@use "variables" as *;
+
+@mixin up($bp) {
+  @media (min-width: map.get($breakpoints, $bp)) { @content; }
+}
+@mixin flex-center { display: flex; align-items: center; justify-content: center; }

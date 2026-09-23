@@ -1,0 +1,14 @@
+{
+  "name": "themeforest-template",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "sass HTML/scss/style.scss HTML/assets/css/style.css --no-source-map",
+    "build:min": "sass HTML/scss/style.scss HTML/assets/css/style.min.css --style=compressed --no-source-map",
+    "watch": "sass --watch HTML/scss/style.scss HTML/assets/css/style.css",
+    "zip": "zip -r package.zip HTML Documentation Licensing -x '*.gitkeep'"
+  },
+  "devDependencies": {
+    "sass": "^1.80.0"
+  }
+}

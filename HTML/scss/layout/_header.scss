@@ -1,0 +1,14 @@
+@use "../abstracts" as *;
+
+.site-header {
+  position: sticky; top: 0; z-index: 100; background: $color-bg; border-bottom: 1px solid $color-border;
+  &__inner { display: flex; align-items: center; justify-content: space-between; min-height: 72px; }
+  &__logo { font-family: $font-heading; font-size: 1.5rem; font-weight: 700; color: $color-primary; }
+}
+.main-nav {
+  display: none;
+  @include up(lg) { display: flex; gap: 2rem; }
+  a { font-weight: 500; transition: color $transition; &:hover, &.active { color: $color-primary; } }
+  &.is-open { display: flex; flex-direction: column; position: absolute; inset: 72px 0 auto; background: $color-bg; padding: 1rem; gap: 1rem; border-bottom: 1px solid $color-border; }
+}
+.nav-toggle { font-size: 1.5rem; @include up(lg) { display: none; } }
