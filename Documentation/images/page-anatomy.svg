@@ -3,7 +3,7 @@
   <rect x="40" y="24" width="400" height="412" rx="12" fill="#fff" stroke="#DADDE3"/>
   <rect x="56" y="40" width="368" height="56" rx="8" fill="#16181D"/>
   <text x="72" y="74" fill="#fff" font-size="16" font-weight="600">Header</text>
-  <rect x="56" y="108" width="368" height="110" rx="8" fill="#E8ECFF" stroke="#2B4EFF"/>
+  <rect x="56" y="108" width="368" height="110" rx="8" fill="#EEFBC6" stroke="#0D0E12"/>
   <text x="72" y="168" fill="#16181D" font-size="16" font-weight="600">Hero section</text>
   <rect x="56" y="228" width="368" height="60" rx="8" fill="#F4F5F7" stroke="#DADDE3"/>
   <text x="72" y="263" fill="#16181D" font-size="15">Section</text>
@@ -13,8 +13,8 @@
   <text x="72" y="399" fill="#fff" font-size="16" font-weight="600">Footer</text>
   <g font-size="13" fill="#5B616E">
     <line x1="424" y1="68" x2="470" y2="68" stroke="#5B616E"/><text x="478" y="72">&lt;header class="site-header"&gt;</text>
-    <path d="M436 108 V358" stroke="#2B4EFF" fill="none"/><line x1="436" y1="233" x2="470" y2="233" stroke="#2B4EFF"/>
-    <text x="478" y="228" fill="#2B4EFF">&lt;main class="main-content"&gt;</text>
+    <path d="M436 108 V358" stroke="#0D0E12" fill="none"/><line x1="436" y1="233" x2="470" y2="233" stroke="#0D0E12"/>
+    <text x="478" y="228" fill="#0D0E12">&lt;main class="main-content"&gt;</text>
     <text x="478" y="246">made of &lt;section&gt; blocks</text>
     <line x1="424" y1="394" x2="470" y2="394" stroke="#5B616E"/><text x="478" y="398">&lt;footer class="site-footer"&gt;</text>
   </g>
