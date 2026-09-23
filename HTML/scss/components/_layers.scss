@@ -21,23 +21,73 @@
   &__foot { padding: 20px; border-top: 1px solid var(--color-border); display: grid; gap: 12px; }
 }
 
+// Mobile menu drawer: full width on phones, big type, numbered items
+.mobile-menu {
+  width: min(440px, 100vw);
+  &__head { border-bottom: 0; padding: 14px 16px 6px 20px; img { width: 120px; height: 33px; } }
+  &__close { background: var(--color-bg); }
+  &__body { padding: 12px 20px 24px; }
+  &__search { position: relative; margin-bottom: 8px;
+    input { width: 100%; height: 50px; padding: 0 50px 0 18px; border: 1px solid transparent; border-radius: var(--radius-pill); background: var(--color-bg);
+      &:focus { outline: none; border-color: var(--color-text); background: var(--color-surface); } }
+    button { position: absolute; right: 4px; top: 4px; width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%; background: var(--color-text); color: #fff;
+      svg { width: 18px; height: 18px; } } }
+  &__tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 24px; }
+  &__tile { display: grid; gap: 18px; padding: 16px; border-radius: var(--radius-md); background: var(--color-text); color: #fff;
+    span { font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #9A9EA8; }
+    strong { font-family: var(--font-display); font-size: 1.25rem; letter-spacing: -0.02em; line-height: 1; }
+    &--accent { background: var(--color-accent); color: var(--color-text); span { color: rgba(13, 14, 18, 0.65); } } }
+  &__extra { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; .btn { padding-inline: 12px; } }
+  &__foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 20px calc(14px + env(safe-area-inset-bottom));
+    border-top: 1px solid var(--color-border); font-size: var(--fs-sm);
+    > a { display: inline-flex; align-items: center; gap: 8px; font-weight: 500; svg { width: 16px; height: 16px; } } }
+  &__social { display: flex; gap: 6px; list-style: none;
+    a { display: inline-flex; height: 30px; align-items: center; padding: 0 12px; border: 1px solid var(--color-border); border-radius: var(--radius-pill); font-size: 12px; } }
+}
+
 // Mobile navigation (cloned from the main menu by main.js)
 .mobile-nav {
-  .main-nav__list { display: grid; list-style: none; }
-  .main-nav__item { display: grid; grid-template-columns: 1fr auto; align-items: center; border-bottom: 1px solid var(--color-border); }
-  .main-nav__link { padding: 14px 0; font-size: var(--fs-lg); font-weight: 500; }
-  .submenu-toggle { width: 44px; height: 44px; display: grid; place-items: center; svg { width: 20px; height: 20px; transition: transform 0.2s; } }
+  .main-nav__list { display: grid; list-style: none; counter-reset: mnav; }
+  .main-nav__item {
+    counter-increment: mnav; display: grid; grid-template-columns: 30px 1fr auto; align-items: center;
+    margin: 0; border-radius: 0; background: none; color: var(--color-text); border-bottom: 1px dashed var(--color-border);
+    &::before { content: counter(mnav, decimal-leading-zero); font-family: var(--font-mono); font-size: 11px; color: var(--color-muted); }
+  }
+  .main-nav__link {
+    margin: 0; padding: 16px 0; border-radius: 0; background: none; color: inherit;
+    font-family: var(--font-display); font-size: 1.75rem; font-weight: 700; line-height: 1; letter-spacing: -0.035em;
+    &:hover { background: none; color: var(--color-muted); }
+    &[aria-current="page"] { font-weight: 700; }
+  }
+  // Current section: lime dot next to the label
+  .main-nav__item:has(> [aria-current="page"]) { margin: 0; background: none; color: var(--color-text);
+    > .main-nav__link { display: inline-flex; align-items: center; gap: 10px;
+      &::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--color-accent); box-shadow: 0 0 0 3px rgba(198, 244, 50, 0.3); } }
+    .submenu-toggle { margin-right: 0; } }
+  .submenu-toggle { width: 40px; height: 40px; margin: 0; display: grid; place-items: center; border-radius: 50%; background: var(--color-bg); color: var(--color-text);
+    transition: background 0.2s, color 0.2s;
+    svg { width: 18px; height: 18px; transition: transform 0.25s var(--ease); } }
+  .is-expanded > .submenu-toggle { background: var(--color-text); color: #fff; svg { transform: rotate(180deg); } }
   .dropdown, .mega-menu {
     position: static; grid-column: 1 / -1; display: none; visibility: visible; opacity: 1; transform: none;
-    border: 0; box-shadow: none; padding: 0 0 16px 12px; border-radius: 0; background: none;
+    margin: 0 0 14px; padding: 8px; border: 0; box-shadow: none; border-radius: var(--radius-md); background: var(--color-bg);
+    animation: mnav-open 0.3s var(--ease);
   }
-  .mega-menu { grid-template-columns: 1fr; gap: 16px; }
+  .dropdown { list-style: none;
+    a { display: block; padding: 12px 14px; border-radius: var(--radius-sm); font-size: 15px; font-weight: 500;
+      &:hover, &[aria-current="page"] { background: var(--color-surface); } } }
+  .mega-menu { grid-template-columns: 1fr 1fr; gap: 18px 12px; padding: 16px;
+    > div { min-width: 0; }
+    ul { gap: 2px; } a { display: block; padding: 6px 0; font-size: 15px; } }
+  .mega-menu__title { margin-bottom: 6px; }
   .mega-promo { display: none; }
   .is-expanded > .dropdown, .is-expanded > .mega-menu { display: grid; }
-  .is-expanded > .submenu-toggle svg { transform: rotate(180deg); }
-  .dropdown a { padding: 8px 0; }
 }
-.mobile-menu__extra { margin-top: 24px; display: grid; gap: 12px; }
+// Items slide in one after another when the drawer opens
+.mobile-menu.is-open .mobile-nav .main-nav__item { animation: mnav-in 0.45s var(--ease) both; }
+@for $i from 1 through 6 { .mobile-menu.is-open .mobile-nav .main-nav__item:nth-child(#{$i}) { animation-delay: #{0.05s + $i * 0.04s}; } }
+@keyframes mnav-in { from { opacity: 0; transform: translateX(-12px); } }
+@keyframes mnav-open { from { opacity: 0; transform: translateY(-4px); } }
 
 // Mini-cart items
 .mini-cart { list-style: none; display: grid; gap: 16px; }

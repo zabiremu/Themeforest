@@ -192,7 +192,7 @@ const SETTINGS = {
       specs: $("[data-qv-specs]", modal),
       link: $("[data-qv-link]", modal)
     };
-    if (img && target.img) { target.img.src = img.getAttribute("src"); target.img.alt = img.alt; }
+    if (img && target.img) { target.img.src = img.getAttribute("src"); target.img.alt = img.alt; target.img.toggleAttribute("data-photo", img.hasAttribute("data-photo")); }
     if (title && target.title) target.title.textContent = title.textContent;
     if (title && target.link) target.link.href = title.getAttribute("href");
     if (price && target.price) target.price.innerHTML = price.innerHTML;
@@ -598,4 +598,19 @@ const SETTINGS = {
       onScroll();
     }
   }
+
+  /* ----------------------------------------------------------
+     21. Image fallback
+     An image with data-fallback="path.svg" switches to that file if it
+     cannot load (for example a remote demo photo that is offline).
+  ---------------------------------------------------------- */
+  const useFallback = (img) => {
+    const alt = img.dataset.fallback;
+    if (!alt) return;
+    img.removeAttribute("data-fallback");
+    img.removeAttribute("data-photo");
+    img.src = alt;
+  };
+  document.addEventListener("error", (e) => { if (e.target.tagName === "IMG") useFallback(e.target); }, true);
+  $$("img[data-fallback]").forEach((img) => { if (img.complete && img.naturalWidth === 0) useFallback(img); });
 })();

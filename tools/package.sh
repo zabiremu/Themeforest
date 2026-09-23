@@ -14,7 +14,7 @@ for f in glob.glob("build/package/HTML/*.html"):
     s = re.sub(r"<(img|input|meta|link|br|hr)\b([^>]*?)\s*/>", r"<\1\2>", s, flags=re.S)
     open(f, "w").write(s)
 PY
-if grep -rl "images/demo/" build/package/HTML/*.html; then echo "Demo photo references left in package" >&2; exit 1; fi
+if grep -rlE "images/demo/|unsplash" build/package/HTML/*.html; then echo "Demo photo references left in package" >&2; exit 1; fi
 rm -f ohmly-html-template.zip
 (cd build/package && zip -qr ../../ohmly-html-template.zip HTML Documentation Licensing -x '*.gitkeep' '*.DS_Store')
 echo "ohmly-html-template.zip ready (placeholders only)"

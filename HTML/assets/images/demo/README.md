@@ -1,5 +1,9 @@
 # Demo photos (live preview only)
 
+The live demo already shows real photos hotlinked from Unsplash (see the
+`UNSPLASH` list at the top of `tools/pages.py`; change a photo by changing its ID).
+A file you put in this folder wins over the Unsplash photo for the same slot.
+
 Put real product photos here to show them on the live demo. They are never
 included in the ThemeForest download: `npm run zip` rebuilds the pages with
 the original SVG placeholders and leaves this folder out.

@@ -11,19 +11,70 @@ DEMO = os.path.join(os.path.dirname(__file__), "..", "HTML", "assets", "images",
 USE_PHOTOS = os.environ.get("OHMLY_PLACEHOLDERS") != "1"
 
 
+# Live-demo photos from Unsplash (free under the Unsplash License). Hotlinked, never bundled:
+# the ThemeForest package is built with OHMLY_PLACEHOLDERS=1 and keeps the SVG artwork.
+# A local file in assets/images/demo/<folder>/<name>.jpg wins over the entry here.
+UNSPLASH = {
+    "products/headphones": "photo-1618366712010-f4ae9c647dcb",
+    "products/headphones-side": "photo-1583394838336-acd977736f90",
+    "products/headphones-case": "photo-1599669454515-1b2e0173f302",
+    "products/headphones-detail": "photo-1590658268037-6bf12165a8df",
+    "products/earbuds": "photo-1632200004922-bc18602c79fc",
+    "products/phone": "photo-1511707171634-5f897ff02aa9",
+    "products/laptop": "photo-1496181133206-80ce9b88a853",
+    "products/watch": "photo-1624096104992-9b4fa3a279dd",
+    "products/speaker": "photo-1608043152269-423dbba4e7e1",
+    "products/controller": "photo-1655560378428-7605bda51749",
+    "products/tablet": "photo-1544244015-0df4b3ffc6b0",
+    "products/camera": "photo-1526170375885-4d8ecf77b99f",
+    "products/keyboard": "photo-1587829741301-dc798b83add3",
+    "products/powerbank": "photo-1609091839311-d5365f9ff1c5",
+    "products/monitor": "photo-1527443224154-c4a3942d3acf",
+    "categories/audio": "photo-1618366712010-f4ae9c647dcb",
+    "categories/phones": "photo-1511707171634-5f897ff02aa9",
+    "categories/laptops": "photo-1496181133206-80ce9b88a853",
+    "categories/wearables": "photo-1624096104992-9b4fa3a279dd",
+    "categories/gaming": "photo-1655560378428-7605bda51749",
+    "categories/cameras": "photo-1526170375885-4d8ecf77b99f",
+    "hero/hero-headphones": "photo-1585298723682-7115561c51b7",
+    "hero/laptop-on-dark": "photo-1496181133206-80ce9b88a853",
+    "hero/headphones-on-color": "photo-1618366712010-f4ae9c647dcb",
+    "blog/blog-1": "photo-1505740420928-5e560c06d30e",
+    "blog/blog-2": "photo-1496181133206-80ce9b88a853",
+    "blog/blog-3": "photo-1527443224154-c4a3942d3acf",
+    "blog/blog-4": "photo-1579586337278-3befd40fd17a",
+    "blog/blog-5": "photo-1526170375885-4d8ecf77b99f",
+    "blog/blog-6": "photo-1546435770-a3e426bf472b",
+}
+
+
+def unsplash(photo_id, folder):
+    size = "w=1200&h=750" if folder in ("blog", "hero") else "w=800&h=800"
+    return f"https://images.unsplash.com/{photo_id}?{size}&fit=crop&crop=entropy&auto=format&q=75"
+
+
 def use_demo_photos(html):
-    """Swap a placeholder SVG for a real photo when one exists in assets/images/demo/.
-    Example: drop demo/products/headphones.jpg and every headphones.svg on the site becomes that photo."""
-    if not USE_PHOTOS or not os.path.isdir(DEMO):
+    """Swap placeholder SVGs for real photos on the live demo.
+    The SVG stays as data-fallback, so a photo that fails to load shows the artwork instead."""
+    if not USE_PHOTOS:
         return html
 
     def swap(m):
         folder, name = m.group(1), m.group(2)
+        svg = m.group(0)
         for ext in ("webp", "jpg", "jpeg", "png", "avif"):
             if os.path.exists(os.path.join(DEMO, folder, f"{name}.{ext}")):
-                return f"assets/images/demo/{folder}/{name}.{ext}"
-        return m.group(0)
-    return re.sub(r"assets/images/(products|categories|hero|blog)/([a-z0-9-]+)\.svg", swap, html)
+                return f'src="assets/images/demo/{folder}/{name}.{ext}" data-photo data-fallback="{svg[5:-1]}"'
+        key = f"{folder}/{name}"
+        if key in UNSPLASH:
+            return f'src="{unsplash(UNSPLASH[key], folder).replace("&", "&amp;")}" data-photo data-fallback="{svg[5:-1]}"'
+        return svg
+    html = re.sub(r'(?<![-\w])src="assets/images/(products|categories|hero|blog)/([a-z0-9-]+)\.svg"', swap, html)
+
+    def swap_gallery(m):  # gallery thumbnails carry the big image in data-src
+        key = f"{m.group(1)}/{m.group(2)}"
+        return f'data-src="{unsplash(UNSPLASH[key], m.group(1)).replace("&", "&amp;")}"' if key in UNSPLASH else m.group(0)
+    return re.sub(r'data-src="assets/images/(products)/([a-z0-9-]+)\.svg"', swap_gallery, html)
 BRAND = "Ohmly"
 IMG = "assets/images"
 
@@ -471,17 +522,31 @@ def layers(newsletter=False):
     a = P["aero"]
     return f"""
 <!-- Mobile Menu Start -->
-<div class="drawer drawer--left" id="mobile-menu" role="dialog" aria-modal="true" aria-labelledby="mobile-menu-title">
-  <div class="drawer__head">
-    <h2 id="mobile-menu-title">Menu</h2>
-    <button class="icon-btn" type="button" data-close aria-label="Close menu">{icon('close')}</button>
+<div class="drawer drawer--left mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-labelledby="mobile-menu-title">
+  <div class="drawer__head mobile-menu__head">
+    <h2 class="visually-hidden" id="mobile-menu-title">Menu</h2>
+    <a href="index.html"><img src="{IMG}/logo.svg" alt="{BRAND} home" width="132" height="36"></a>
+    <button class="icon-btn mobile-menu__close" type="button" data-close aria-label="Close menu">{icon('close')}</button>
   </div>
-  <div class="drawer__body">
+  <div class="drawer__body mobile-menu__body">
+    <form class="mobile-menu__search" action="shop.html" role="search">
+      <label class="visually-hidden" for="mobile-search">Search products</label>
+      <input id="mobile-search" type="search" name="q" placeholder="Search 1,200 products">
+      <button type="submit" aria-label="Search">{icon('search')}</button>
+    </form>
     <nav class="mobile-nav" aria-label="Mobile"></nav>
-    <div class="mobile-menu__extra">
-      <a class="btn btn--primary btn--block" href="login.html">Log in</a>
-      <a class="btn btn--light btn--block" href="order-tracking.html">Track order</a>
+    <div class="mobile-menu__tiles">
+      <a class="mobile-menu__tile mobile-menu__tile--accent" href="index-3.html#deals-title"><span class="mono">Up to 20% off</span><strong>Deals</strong></a>
+      <a class="mobile-menu__tile" href="order-tracking.html"><span class="mono">Where is it?</span><strong>Track order</strong></a>
     </div>
+    <div class="mobile-menu__extra">
+      <a class="btn btn--primary" href="login.html">Log in</a>
+      <a class="btn btn--light" href="register.html">Create account</a>
+    </div>
+  </div>
+  <div class="mobile-menu__foot">
+    <a href="tel:+15550142000">{icon('phone')}+1 (555) 014-2000</a>
+    <ul class="mobile-menu__social"><li><a href="#">Instagram</a></li><li><a href="#">YouTube</a></li><li><a href="#">X</a></li></ul>
   </div>
 </div>
 <!-- Mobile Menu End -->

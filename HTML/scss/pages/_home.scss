@@ -174,3 +174,4 @@
 .mosaic__tile--lead .eyebrow { color: rgba(13, 14, 18, 0.7); &::before { background: var(--color-text); box-shadow: none; } }
 .ticker { margin-top: 24px; }
 .hero + .ticker { margin-top: 8px; }
+.deal__media:has(img[data-photo]) { padding: 0; img { max-width: none; aspect-ratio: 1; } }
