@@ -1,6 +1,30 @@
-@use "sass:color";
 @use "../abstracts" as *;
+
 .site-footer {
-  background: $color-primary; color: #fff; padding-block: 3rem 1.5rem;
-  &__bottom { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(255, 255, 255, 0.15); font-size: 0.875rem; }
+  background: var(--color-text); color: #C4C8D0; font-size: 15px; padding-top: var(--space-8);
+  a:hover { color: #fff; }
+  &__grid {
+    display: grid; gap: 40px; grid-template-columns: 1fr;
+    @include up(sm) { grid-template-columns: 1fr 1fr; }
+    @include up(lg) { grid-template-columns: 1.4fr 1fr 1fr 1.4fr; }
+  }
+  &__bottom {
+    margin-top: var(--space-8); padding-block: 24px; border-top: 1px solid rgba(255, 255, 255, 0.12);
+    display: flex; flex-wrap: wrap; gap: 12px 24px; justify-content: space-between; font-size: var(--fs-sm);
+    ul { display: flex; gap: 20px; list-style: none; }
+  }
 }
+.footer-widget {
+  h2 { font-size: var(--fs-md); color: #fff; margin-bottom: 16px; letter-spacing: 0; }
+  ul { list-style: none; display: grid; gap: 10px; }
+  p { max-width: 30em; }
+  .footer-logo { margin-bottom: 16px; width: 120px; height: 32px; }
+}
+.footer-widget .social-links { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 20px;
+  a { text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(255,255,255,.3); } }
+.footer-contact li { display: flex; gap: 10px; svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 3px; } }
+.secure-note { display: inline-flex; align-items: center; gap: 8px; svg { width: 16px; height: 16px; } }
+.site-footer .newsletter-form { margin-top: 16px; }
+.site-footer .newsletter-form input { background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.18); color: #fff;
+  &::placeholder { color: #9AA0AB; } }
+.footer-contact { margin-top: 20px; }

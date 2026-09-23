@@ -1,22 +1,42 @@
 /*------------------------------------------------------------------
-  Template Name : [Template Name]
-  Author        : Zabir Raihan
+  Template Name : Ohmly - Electronics eCommerce HTML Template
   Version       : 1.0.0
+  Author        : Zabir
 
   TABLE OF CONTENTS
-  1. Base (reset, typography)
-  2. Layout (container, header, footer)
-  3. Components (buttons, forms)
-  4. Pages (home, about, contact)
-  Tokens: scss/abstracts/_variables.scss
+  1. Theme settings (:root custom properties)
+  2. Base: reset, typography, utilities
+  3. Layout: container, header, footer
+  4. Components: buttons, forms, badges, product card,
+     drawers and modals, widgets
+  5. Pages: home, shop, product, cart and checkout,
+     account, content pages
+
+  Colors, fonts and spacing: section 1, or
+  scss/abstracts/_variables.scss if you use SCSS.
 -------------------------------------------------------------------*/
+
+// 1. Theme settings
+@use "base/root";
+// 2. Base
 @use "base/reset";
 @use "base/typography";
+@use "base/utilities";
+// 3. Layout
 @use "layout/container";
 @use "layout/header";
 @use "layout/footer";
+// 4. Components
 @use "components/buttons";
 @use "components/forms";
+@use "components/badges";
+@use "components/product-card";
+@use "components/layers";
+@use "components/widgets";
+// 5. Pages
 @use "pages/home";
-@use "pages/about";
-@use "pages/contact";
+@use "pages/shop";
+@use "pages/product";
+@use "pages/cart";
+@use "pages/account";
+@use "pages/content";

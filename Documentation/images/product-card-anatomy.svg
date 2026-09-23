@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" width="720" height="420" font-family="system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif">
+  <rect width="720" height="420" fill="#F4F5F7"/>
+  <rect x="60" y="24" width="280" height="372" rx="12" fill="#fff" stroke="#DADDE3"/>
+  <rect x="72" y="36" width="256" height="190" rx="8" fill="#E9EBEF"/>
+  <circle cx="200" cy="131" r="48" fill="none" stroke="#B8BDC7" stroke-width="10"/>
+  <rect x="84" y="48" width="44" height="22" rx="4" fill="#C2410C"/><text x="106" y="63" fill="#fff" font-size="12" text-anchor="middle">-20%</text>
+  <text x="76" y="254" fill="#16181D" font-size="15" font-weight="600">Aero Wireless Headphones</text>
+  <g font-size="13"><text x="76" y="280" fill="#5B616E">Battery</text><text x="324" y="280" fill="#16181D" text-anchor="end">30 h</text>
+  <line x1="76" y1="288" x2="324" y2="288" stroke="#DADDE3"/>
+  <text x="76" y="306" fill="#5B616E">Weight</text><text x="324" y="306" fill="#16181D" text-anchor="end">250 g</text></g>
+  <text x="76" y="360" fill="#5B616E" font-size="13" text-decoration="line-through">$149</text>
+  <text x="114" y="360" fill="#16181D" font-size="18" font-weight="700">$119</text>
+  <rect x="210" y="338" width="114" height="36" rx="8" fill="#2B4EFF"/><text x="267" y="361" fill="#fff" font-size="13" text-anchor="middle">Add to cart</text>
+  <g stroke="#2B4EFF">
+    <line x1="340" y1="131" x2="410" y2="131"/><line x1="128" y1="59" x2="160" y2="59"/><path d="M160 59 H350 V76 H410" fill="none"/>
+    <line x1="340" y1="250" x2="410" y2="250"/><line x1="340" y1="293" x2="410" y2="293"/><line x1="340" y1="355" x2="410" y2="340"/><line x1="324" y1="360" x2="410" y2="382"/>
+  </g>
+  <g font-size="12" fill="#fff" text-anchor="middle">
+    <circle cx="420" cy="131" r="10" fill="#2B4EFF"/><text x="420" y="135">1</text>
+    <circle cx="420" cy="76" r="10" fill="#2B4EFF"/><text x="420" y="80">2</text>
+    <circle cx="420" cy="250" r="10" fill="#2B4EFF"/><text x="420" y="254">3</text>
+    <circle cx="420" cy="293" r="10" fill="#2B4EFF"/><text x="420" y="297">4</text>
+    <circle cx="420" cy="340" r="10" fill="#2B4EFF"/><text x="420" y="344">5</text>
+    <circle cx="420" cy="382" r="10" fill="#2B4EFF"/><text x="420" y="386">6</text>
+  </g>
+  <g font-size="13" fill="#16181D">
+    <text x="440" y="135">Image  .product-card__media</text>
+    <text x="440" y="80">Badge  .badge--sale</text>
+    <text x="440" y="254">Name  .product-card__title</text>
+    <text x="440" y="297">Specs  .spec-list</text>
+    <text x="440" y="344">Price  .price</text>
+    <text x="440" y="386">Button  data-add-to-cart</text>
+  </g>
+</svg>

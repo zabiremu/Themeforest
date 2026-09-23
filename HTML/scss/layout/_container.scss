@@ -1,3 +1,14 @@
 @use "../abstracts" as *;
-.container { width: 100%; max-width: $container-max; margin-inline: auto; padding-inline: 1rem; }
-.section { padding-block: 4rem; @include up(lg) { padding-block: 6rem; } }
+
+.container { width: 100%; max-width: var(--container); margin-inline: auto; padding-inline: 16px; @include up(md) { padding-inline: 24px; } }
+.section { padding-block: var(--space-8); @include up(lg) { padding-block: var(--space-9); } }
+.section--tight { padding-block: var(--space-7); }
+.section--surface { background: var(--color-surface); border-block: 1px solid var(--color-border); }
+
+// Section heading row: title left, link or controls right
+.section-head {
+  display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between;
+  gap: var(--space-4); margin-bottom: var(--space-6);
+  h2 { max-width: 18em; }
+  p { color: var(--color-muted); margin-top: var(--space-2); max-width: 36em; }
+}

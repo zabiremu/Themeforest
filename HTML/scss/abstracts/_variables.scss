@@ -1,16 +1,26 @@
-// Design tokens — change here, rebuild CSS
-$color-primary:   #1f4e79;
-$color-secondary: #c89b3c;
-$color-text:      #2b2b2b;
-$color-muted:     #6b7280;
-$color-bg:        #ffffff;
-$color-border:    #e5e7eb;
+// ==========================================================
+// Design tokens. Change a value here, then run `npm run build`.
+// These values are written into CSS custom properties in
+// base/_root.scss, so every component reads from one place.
+// ==========================================================
 
-$font-heading: "Playfair Display", Georgia, serif;
-$font-body:    "Inter", system-ui, -apple-system, sans-serif;
+// Colors
+$color-bg:           #F4F5F7; // page background
+$color-surface:      #FFFFFF; // cards, header, drawers
+$color-surface-alt:  #EEF0F3; // image panels
+$color-text:         #16181D; // headings and body text
+$color-muted:        #5B616E; // labels, secondary text
+$color-border:       #DADDE3; // lines and borders
+$color-primary:      #2B4EFF; // buttons, links, selected states
+$color-primary-dark: #1D3AD9; // primary hover
+$color-primary-soft: #E8ECFF; // tinted panels
+$color-sale:         #C2410C; // sale badges and prices
+$color-success:      #15803D; // in stock, success messages
+$color-rating:       #B45309; // rating stars
 
-$container-max: 1200px;
-$radius: 6px;
-$transition: 0.25s ease;
+// Typography
+$font-body: "Geist", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
 
+// Layout
+$container-max: 1320px;
 $breakpoints: (sm: 576px, md: 768px, lg: 992px, xl: 1200px);

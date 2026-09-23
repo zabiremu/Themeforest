@@ -1,0 +1,49 @@
+@use "../abstracts" as *;
+
+// Theme settings. Edit these in style.css if you are not using SCSS.
+:root {
+  --color-bg: #{$color-bg};
+  --color-surface: #{$color-surface};
+  --color-surface-alt: #{$color-surface-alt};
+  --color-text: #{$color-text};
+  --color-muted: #{$color-muted};
+  --color-border: #{$color-border};
+  --color-primary: #{$color-primary};
+  --color-primary-dark: #{$color-primary-dark};
+  --color-primary-soft: #{$color-primary-soft};
+  --color-sale: #{$color-sale};
+  --color-success: #{$color-success};
+  --color-rating: #{$color-rating};
+
+  --font-body: #{$font-body};
+
+  --fs-xs: 0.8125rem;
+  --fs-sm: 0.875rem;
+  --fs-md: 1rem;
+  --fs-lg: 1.25rem;
+  --fs-xl: 1.5625rem;
+  --fs-2xl: 1.9375rem;
+  --fs-3xl: 2.4375rem;
+  --fs-4xl: 3.0625rem;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+
+  --container: #{$container-max};
+  --topbar-h: 36px;
+  --header-h: 72px;
+  --shadow-layer: 0 24px 64px rgba(22, 24, 29, 0.18);
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}

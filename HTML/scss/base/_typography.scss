@@ -1,8 +1,54 @@
-@use "../abstracts" as *;
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 16px); }
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-md);
+  line-height: 1.6;
+  color: var(--color-text);
+  background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+h1, h2, h3, h4, h5, h6 { font-weight: 600; line-height: 1.2; letter-spacing: -0.015em; }
+h1 { font-size: clamp(2.125rem, 3.2vw + 1rem, var(--fs-4xl)); line-height: 1.06; letter-spacing: -0.03em; }
+h2 { font-size: clamp(1.5625rem, 1.6vw + 1rem, var(--fs-2xl)); letter-spacing: -0.02em; }
+h3 { font-size: var(--fs-lg); }
+h4 { font-size: var(--fs-md); }
+small { font-size: var(--fs-sm); }
+strong, b { font-weight: 600; }
+:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+::selection { background: var(--color-primary-soft); }
 
-body { font-family: $font-body; color: $color-text; background: $color-bg; line-height: 1.6; }
-h1, h2, h3, h4, h5, h6 { font-family: $font-heading; line-height: 1.2; }
-:focus-visible { outline: 2px solid $color-secondary; outline-offset: 3px; }
+.lead { font-size: var(--fs-lg); line-height: 1.5; color: var(--color-muted); max-width: 34em; }
+.text-muted { color: var(--color-muted); }
+.tabular { font-variant-numeric: tabular-nums; }
+.link { color: var(--color-primary); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.link:hover { text-decoration: none; }
+
+// Long-form text (blog, policies)
+.prose {
+  max-width: 44rem;
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  > * + * { margin-top: 1.25em; }
+  h2 { margin-top: 2em; font-size: var(--fs-xl); }
+  h3 { margin-top: 1.75em; }
+  a { color: var(--color-primary); text-decoration: underline; text-underline-offset: 3px; }
+  ul, ol { padding-left: 1.25em; }
+  li + li { margin-top: 0.4em; }
+  blockquote {
+    border-left: 3px solid var(--color-primary);
+    padding-left: 1.25em;
+    font-size: var(--fs-lg);
+    line-height: 1.5;
+  }
+  img { border-radius: var(--radius-md); }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

@@ -1,0 +1,39 @@
+@use "../abstracts" as *;
+
+.auth-wrap { display: grid; place-items: center; padding-block: 56px 80px; }
+.auth-card { width: min(460px, 100%); padding: 32px 24px; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); display: grid; gap: 20px;
+  @include up(md) { padding: 40px; }
+  h1 { font-size: var(--fs-2xl); } > p { color: var(--color-muted); }
+  .form-stack { display: grid; gap: 16px; }
+  .auth-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: 15px; }
+  .auth-alt { text-align: center; font-size: 15px; color: var(--color-muted); a { color: var(--color-primary); font-weight: 500; } } }
+
+.account-layout { display: grid; gap: 32px; @include up(lg) { grid-template-columns: 260px 1fr; gap: 48px; } }
+.account-nav { .tabs__list { flex-direction: column; border: 0; gap: 2px; margin: 0; overflow: visible;
+    @include down(lg) { flex-direction: row; overflow-x: auto; border-bottom: 1px solid var(--color-border); } }
+  .tabs__tab { text-align: left; border: 0; border-radius: var(--radius-sm); padding: 12px 14px;
+    @include up(lg) { &[aria-selected="true"] { background: var(--color-surface); box-shadow: inset 3px 0 0 var(--color-primary); } }
+    @include down(lg) { border-radius: 0; border-bottom: 2px solid transparent; &[aria-selected="true"] { border-color: var(--color-primary); } } }
+  .logout { display: block; padding: 12px 14px; color: var(--color-muted); &:hover { color: var(--color-sale); } } }
+.account-panel { display: grid; gap: 24px; align-content: start; h2 { font-size: var(--fs-xl); } }
+.stat-row { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  div { padding: 18px; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); }
+  dt { font-size: var(--fs-sm); color: var(--color-muted); } dd { font-size: var(--fs-xl); font-weight: 600; font-variant-numeric: tabular-nums; } }
+.address-grid { display: grid; gap: 16px; @include up(md) { grid-template-columns: 1fr 1fr; } }
+.address-card { padding: 20px; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); display: grid; gap: 8px;
+  address { font-style: normal; color: var(--color-muted); } .btn-row { margin-top: 8px; } }
+
+/* Order tracking */
+.tracking-layout { display: grid; gap: 40px; @include up(lg) { grid-template-columns: 400px 1fr; gap: 64px; } }
+.timeline { list-style: none; display: grid; gap: 0; counter-reset: step;
+  li { counter-increment: step; position: relative; display: grid; grid-template-columns: 40px 1fr; gap: 16px; padding-bottom: 28px;
+    &::before { content: counter(step); width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; font-weight: 600; font-variant-numeric: tabular-nums; background: var(--color-surface); border: 1px solid var(--color-border); color: var(--color-muted); position: relative; z-index: 1; }
+    &::after { content: ""; position: absolute; left: 19.5px; top: 40px; bottom: 0; width: 1px; background: var(--color-border); }
+    &:last-child::after { display: none; }
+    h3 { font-size: var(--fs-md); letter-spacing: 0; margin-top: 8px; } p { color: var(--color-muted); font-size: 15px; font-variant-numeric: tabular-nums; }
+    &.is-done::before { content: "\2713"; background: var(--color-success); border-color: var(--color-success); color: #fff; }
+    &.is-done::after { background: var(--color-success); }
+    &.is-current::before { background: var(--color-primary); border-color: var(--color-primary); color: #fff; box-shadow: 0 0 0 5px var(--color-primary-soft); } } }
+.form-stack { display: grid; gap: 16px; }
+.tracking-layout .form-card > p { margin-bottom: 20px; }
+.tracking-layout h2 + .text-muted { margin: 6px 0 24px; }

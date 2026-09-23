@@ -1,49 +1,689 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>[Template Name] — Documentation</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ohmly Documentation | Electronics eCommerce HTML Template</title>
 <style>
- body{font-family:system-ui,sans-serif;max-width:860px;margin:0 auto;padding:2rem 1rem;line-height:1.7;color:#222}
- nav a{margin-right:1rem} code,pre{background:#f4f4f5;padding:.15rem .4rem;border-radius:4px} pre{padding:1rem;overflow-x:auto}
- h2{margin-top:2.5rem;border-bottom:1px solid #e5e7eb;padding-bottom:.4rem}
+/*------------------------------------------------------------------
+  Documentation styles (self-contained, no external files)
+  1. Tokens  2. Base  3. Layout & sidebar  4. Content
+  5. Code blocks  6. Tables & callouts  7. Responsive  8. Print
+-------------------------------------------------------------------*/
+
+/* 1. Tokens */
+:root {
+  --paper: #F4F5F7;
+  --surface: #FFFFFF;
+  --ink: #16181D;
+  --graphite: #5B616E;
+  --line: #DADDE3;
+  --cobalt: #2B4EFF;
+  --tip: #15803D;
+  --warn: #C2410C;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  --sidebar: 272px;
+}
+
+/* 2. Base */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+body { margin: 0; font-family: var(--font); font-size: 16px; line-height: 1.65; color: var(--ink); background: var(--paper); }
+a { color: var(--cobalt); }
+a:hover { text-decoration: none; }
+:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 3px; }
+img { max-width: 100%; height: auto; display: block; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+/* 3. Layout & sidebar */
+.skip-link { position: absolute; left: -999px; top: 8px; background: var(--ink); color: #fff; padding: 8px 12px; border-radius: 8px; z-index: 10; }
+.skip-link:focus { left: 8px; }
+.sidebar {
+  position: fixed; inset: 0 auto 0 0; width: var(--sidebar); overflow-y: auto;
+  background: var(--surface); border-right: 1px solid var(--line); padding: 28px 20px;
+}
+.sidebar__brand { font-size: 20px; font-weight: 700; margin: 0 0 2px; }
+.sidebar__meta { color: var(--graphite); font-size: 14px; margin: 0 0 24px; }
+.sidebar ol { list-style: none; margin: 0; padding: 0; counter-reset: nav; }
+.sidebar li { counter-increment: nav; }
+.sidebar a {
+  display: flex; gap: 10px; padding: 8px 10px; border-radius: 8px;
+  color: var(--ink); text-decoration: none; font-size: 15px;
+}
+.sidebar a::before { content: counter(nav); color: var(--graphite); font-variant-numeric: tabular-nums; min-width: 1.4em; }
+.sidebar a:hover { background: var(--paper); }
+.sidebar a.is-active { background: var(--paper); color: var(--cobalt); font-weight: 600; }
+.sidebar a.is-active::before { color: var(--cobalt); }
+
+.content { margin-left: var(--sidebar); padding: 48px 56px 96px; }
+.content__inner { max-width: 780px; }
+
+/* 4. Content */
+.doc-header { padding-bottom: 32px; border-bottom: 1px solid var(--line); margin-bottom: 16px; }
+.doc-header h1 { font-size: 39px; line-height: 1.15; margin: 0 0 12px; letter-spacing: -0.01em; }
+.doc-header p { color: var(--graphite); margin: 0; }
+.doc-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin: 24px 0 0; }
+.doc-facts div { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 16px; }
+.doc-facts dt { color: var(--graphite); font-size: 14px; }
+.doc-facts dd { margin: 0; font-weight: 600; }
+
+section { padding-top: 40px; }
+h2 { font-size: 31px; line-height: 1.2; margin: 0 0 16px; letter-spacing: -0.01em; }
+h3 { font-size: 20px; margin: 32px 0 8px; }
+p, ul, ol { margin: 0 0 16px; }
+li { margin-bottom: 6px; }
+.steps { padding-left: 1.4em; }
+.steps li { padding-left: 4px; margin-bottom: 10px; }
+kbd { font-family: var(--mono); font-size: 13px; background: var(--surface); border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 4px; padding: 1px 6px; }
+code { font-family: var(--mono); font-size: 0.9em; background: #E9EBEF; padding: 1px 5px; border-radius: 4px; }
+figure { margin: 24px 0; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px; }
+figcaption { color: var(--graphite); font-size: 14px; margin-top: 10px; }
+.back-top { display: inline-block; margin-top: 16px; font-size: 14px; }
+
+/* 5. Code blocks */
+.code { position: relative; margin: 16px 0 24px; }
+.code pre {
+  margin: 0; background: var(--ink); color: #E6E8EC; border-radius: 12px;
+  padding: 18px 20px; overflow-x: auto; font-family: var(--mono); font-size: 13.5px; line-height: 1.6;
+}
+.code pre code { background: none; padding: 0; color: inherit; }
+.code .c { color: #8A93A5; }
+.code__label { position: absolute; top: 0; left: 20px; transform: translateY(-50%); background: var(--cobalt); color: #fff; font-size: 12px; padding: 1px 8px; border-radius: 4px; }
+.copy-btn {
+  position: absolute; top: 10px; right: 10px; font: 13px var(--font); color: #E6E8EC;
+  background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18); border-radius: 6px; padding: 3px 10px; cursor: pointer;
+}
+.copy-btn:hover { background: rgba(255,255,255,.16); }
+
+/* 6. Tables & callouts */
+.table-wrap { overflow-x: auto; margin: 16px 0 24px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 15px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { background: var(--paper); font-weight: 600; }
+tr:last-child td { border-bottom: 0; }
+.swatch { display: inline-block; width: 14px; height: 14px; border-radius: 4px; border: 1px solid var(--line); vertical-align: -2px; margin-right: 6px; }
+.callout { border-left: 4px solid var(--cobalt); background: var(--surface); border-radius: 0 12px 12px 0; padding: 14px 18px; margin: 20px 0; }
+.callout p:last-child { margin-bottom: 0; }
+.callout--tip { border-color: var(--tip); }
+.callout--warn { border-color: var(--warn); }
+.callout strong:first-child { display: block; margin-bottom: 2px; }
+
+/* 7. Responsive */
+@media (max-width: 960px) {
+  .sidebar { position: static; width: auto; border-right: 0; border-bottom: 1px solid var(--line); padding: 20px; }
+  .sidebar ol { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 2px; }
+  .content { margin-left: 0; padding: 32px 20px 64px; }
+  .doc-header h1 { font-size: 31px; }
+  h2 { font-size: 25px; }
+}
+
+/* 8. Print */
+@media print {
+  body { background: #fff; font-size: 11pt; }
+  .sidebar, .skip-link, .copy-btn, .back-top { display: none; }
+  .content { margin: 0; padding: 0; }
+  section { break-before: page; padding-top: 0; }
+  .code pre { background: #F4F5F7; color: #16181D; border: 1px solid #DADDE3; white-space: pre-wrap; }
+  .code .c { color: #5B616E; }
+  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 9pt; color: #5B616E; word-break: break-all; }
+  figure, .table-wrap, .callout, .code { break-inside: avoid; }
+}
 </style>
 </head>
 <body>
-<h1>[Template Name] Documentation</h1>
-<p>Thank you for purchasing. If you have questions beyond this guide, contact us via our ThemeForest profile page.</p>
-<nav><a href="#install">Installation</a><a href="#structure">Structure</a><a href="#html">HTML</a><a href="#css">CSS / SCSS</a><a href="#js">JavaScript</a><a href="#credits">Credits</a></nav>
+<a class="skip-link" href="#main">Skip to content</a>
 
-<h2 id="install">Installation</h2>
-<p>Upload the contents of the <code>HTML</code> folder to your server. No build step is needed to use the template.</p>
+<!-- Sidebar Start -->
+<nav class="sidebar" aria-label="Documentation sections">
+  <p class="sidebar__brand">Ohmly</p>
+  <p class="sidebar__meta">Documentation · v1.0.0</p>
+  <ol>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#file-structure">File structure</a></li>
+    <li><a href="#installation">Installation</a></li>
+    <li><a href="#html-structure">HTML structure</a></li>
+    <li><a href="#customization">Customization</a></li>
+    <li><a href="#javascript">JavaScript features</a></li>
+    <li><a href="#forms">Forms</a></li>
+    <li><a href="#browser-support">Browser support</a></li>
+    <li><a href="#credits">Sources &amp; credits</a></li>
+    <li><a href="#changelog">Changelog &amp; support</a></li>
+  </ol>
+</nav>
+<!-- Sidebar End -->
 
-<h2 id="structure">File structure</h2>
-<pre>HTML/
-├── assets/ (css, fonts, images, js)
-├── scss/
-├── index.html
-├── about.html
-└── contact.html</pre>
+<main class="content" id="main">
+<div class="content__inner">
 
-<h2 id="html">HTML structure</h2>
-<pre>&lt;header class="site-header"&gt;...&lt;/header&gt;
-&lt;main class="main-content"&gt;
-   &lt;section class="hero-slider"&gt;...&lt;/section&gt;
-&lt;/main&gt;
-&lt;footer class="site-footer"&gt;...&lt;/footer&gt;</pre>
+<!-- Header Start -->
+<header class="doc-header" id="top">
+  <h1>Ohmly Documentation</h1>
+  <p>Thank you for purchasing Ohmly, an electronics eCommerce HTML template. This guide assumes no coding experience. Follow the sections in order the first time, then use the sidebar to jump to what you need.</p>
+  <dl class="doc-facts">
+    <div><dt>Version</dt><dd>1.0.0</dd></div>
+    <div><dt>Released</dt><dd>September 2026</dd></div>
+    <div><dt>Author</dt><dd>Zabir</dd></div>
+    <div><dt>Support</dt><dd><a href="#changelog">See section 10</a></dd></div>
+  </dl>
+</header>
+<!-- Header End -->
 
-<h2 id="css">CSS / SCSS</h2>
-<p>Colors, fonts and spacing live in <code>scss/abstracts/_variables.scss</code>. To recompile:</p>
-<pre>npm install
-npm run build   # or: npm run watch</pre>
+<!-- 1. Introduction Start -->
+<section id="introduction">
+  <h2>Introduction</h2>
+  <p>Ohmly is a static HTML template for online stores that sell electronics: audio, phones, laptops, wearables, and gaming gear. It gives you the design and front-end behavior of a complete store. It does not include a database, payment processing, or user accounts, so you connect those yourself or through a platform (see <a href="#forms">Forms</a>).</p>
 
-<h2 id="js">JavaScript</h2>
-<p><code>assets/js/main.js</code> handles the mobile menu and active link highlighting.</p>
+  <h3>What's included</h3>
+  <ul>
+    <li><strong>24 HTML pages</strong>: 3 home layouts, shop (grid, list, full width), product details, cart, checkout, order complete, wishlist, compare, login, register, forgot password, my account, order tracking, about, contact, FAQ, blog, blog details, 404, and coming soon.</li>
+    <li><strong>Compiled CSS</strong> (<code>style.css</code> and a minified <code>style.min.css</code>), so you can use the template without installing anything.</li>
+    <li><strong>SCSS source files</strong>, organized in small, labeled files, for developers who want to change the design at the source.</li>
+    <li><strong>Vanilla JavaScript</strong> (no jQuery) with every feature switchable from one settings block.</li>
+    <li><strong>This documentation</strong> and a <code>Licensing</code> folder listing every third-party asset.</li>
+  </ul>
 
-<h2 id="credits">Sources and credits</h2>
-<ul>
- <li>Google Fonts: Inter, Playfair Display (SIL Open Font License)</li>
- <li>Images: [list every image source and license]</li>
-</ul>
+  <div class="callout callout--tip">
+    <strong>Product images are illustrations</strong>
+    <p>The template ships with simple product illustrations (SVG files) so every page looks complete. They are original artwork and you may use them, but most stores replace them with their own product photos (see <a href="#images">Changing images</a>).</p>
+  </div>
+</section>
+<!-- 1. Introduction End -->
+
+<!-- 2. File Structure Start -->
+<section id="file-structure">
+  <h2>File structure</h2>
+  <p>After you unzip the download, you will see three folders. Only the <code>HTML</code> folder goes on your website.</p>
+  <div class="code">
+<pre><code>Ohmly/
+├── HTML/                        <span class="c">← the website (upload this)</span>
+│   ├── assets/
+│   │   ├── css/
+│   │   │   ├── style.css        <span class="c">← main stylesheet (edit this)</span>
+│   │   │   └── style.min.css    <span class="c">← compressed copy for faster loading</span>
+│   │   ├── images/              <span class="c">← logo, product illustrations, blog covers</span>
+│   │   └── js/
+│   │       └── main.js          <span class="c">← all template features + settings</span>
+│   ├── scss/                    <span class="c">← design source files (optional)</span>
+│   │   ├── abstracts/           <span class="c">   _variables.scss holds colors &amp; fonts</span>
+│   │   ├── base/
+│   │   ├── layout/              <span class="c">   header, footer, grid</span>
+│   │   ├── components/          <span class="c">   buttons, product card, modals…</span>
+│   │   ├── pages/
+│   │   └── style.scss
+│   ├── index.html               <span class="c">← Home 1</span>
+│   ├── index-2.html, index-3.html
+│   ├── shop.html, product-details.html, cart.html, checkout.html …
+│   └── 404.html
+├── Documentation/               <span class="c">← you are here</span>
+└── Licensing/                   <span class="c">← licenses for fonts, libraries, icons</span></code></pre>
+  </div>
+  <a class="back-top" href="#top">Back to top</a>
+</section>
+<!-- 2. File Structure End -->
+
+<!-- 3. Installation Start -->
+<section id="installation">
+  <h2>Installation</h2>
+
+  <h3>What you need</h3>
+  <ul>
+    <li>A text editor to change files. We recommend <a href="https://code.visualstudio.com/">Visual Studio Code</a> (free).</li>
+    <li>A web browser such as Chrome, Firefox, Safari, or Edge.</li>
+    <li>For going live: web hosting with cPanel or FTP access.</li>
+  </ul>
+
+  <h3>Option A: View it on your computer</h3>
+  <ol class="steps">
+    <li>Unzip the file you downloaded from ThemeForest.</li>
+    <li>Open the <code>HTML</code> folder.</li>
+    <li>Double-click <code>index.html</code>. It opens in your browser.</li>
+  </ol>
+  <div class="callout callout--tip">
+    <strong>Tip: see changes instantly</strong>
+    <p>In VS Code, install the free <em>Live Server</em> extension, open the <code>HTML</code> folder, right-click <code>index.html</code>, and choose <em>Open with Live Server</em>. The page refreshes every time you save a file.</p>
+  </div>
+
+  <h3>Option B: Upload with cPanel</h3>
+  <ol class="steps">
+    <li>On your computer, open the <code>HTML</code> folder, select <strong>everything inside it</strong>, and compress it into a zip file (for example <code>site.zip</code>).</li>
+    <li>Log in to cPanel and open <strong>File Manager</strong>.</li>
+    <li>Open the <code>public_html</code> folder. This is your website's main folder.</li>
+    <li>Click <strong>Upload</strong> and choose <code>site.zip</code>. Wait for it to reach 100%.</li>
+    <li>Back in File Manager, right-click <code>site.zip</code> and choose <strong>Extract</strong>.</li>
+    <li>Delete <code>site.zip</code>, then visit your domain. You should see the home page.</li>
+  </ol>
+  <div class="callout callout--warn">
+    <strong>Upload the contents, not the folder</strong>
+    <p>If you upload the <code>HTML</code> folder itself, your store will only work at <code>yourdomain.com/HTML/</code>. <code>index.html</code> must sit directly inside <code>public_html</code>.</p>
+  </div>
+
+  <h3>Option C: Upload with FTP</h3>
+  <ol class="steps">
+    <li>Install a free FTP program such as <a href="https://filezilla-project.org/">FileZilla</a>.</li>
+    <li>Enter the host, username, password, and port your hosting company gave you, then click <strong>Quickconnect</strong>.</li>
+    <li>In the right-hand panel (your server), open <code>public_html</code>.</li>
+    <li>In the left-hand panel (your computer), open the <code>HTML</code> folder, select everything inside, and drag it to the right-hand panel.</li>
+  </ol>
+  <a class="back-top" href="#top">Back to top</a>
+</section>
+<!-- 3. Installation End -->
+
+<!-- 4. HTML Structure Start -->
+<section id="html-structure">
+  <h2>HTML structure</h2>
+  <p>Every page follows the same three-part layout: a header, the main content made of sections, and a footer. Each part is wrapped in comments like <code>&lt;!-- Header Start --&gt;</code> and <code>&lt;!-- Header End --&gt;</code>, so you can always find where a block begins and ends.</p>
+
+  <figure>
+    <img src="images/page-anatomy.svg" alt="Diagram of a page: header at top, main content sections in the middle, footer at bottom, each marked with Start and End comments" width="720" height="460">
+    <figcaption>Every page is built from the same header and footer, with different sections in between.</figcaption>
+  </figure>
+
+  <h3>Page skeleton</h3>
+  <div class="code">
+    <span class="code__label">HTML</span>
+<pre><code>&lt;body&gt;
+  <span class="c">&lt;!-- Header Start --&gt;</span>
+  &lt;header class="site-header"&gt;...&lt;/header&gt;
+  <span class="c">&lt;!-- Header End --&gt;</span>
+
+  <span class="c">&lt;!-- Main Content Start --&gt;</span>
+  &lt;main class="main-content"&gt;
+    <span class="c">&lt;!-- Hero Section Start --&gt;</span>
+    &lt;section class="hero"&gt;...&lt;/section&gt;
+    <span class="c">&lt;!-- Hero Section End --&gt;</span>
+  &lt;/main&gt;
+  <span class="c">&lt;!-- Main Content End --&gt;</span>
+
+  <span class="c">&lt;!-- Footer Start --&gt;</span>
+  &lt;footer class="site-footer"&gt;...&lt;/footer&gt;
+  <span class="c">&lt;!-- Footer End --&gt;</span>
+
+  &lt;script src="assets/js/main.js"&gt;&lt;/script&gt;
+&lt;/body&gt;</code></pre>
+  </div>
+
+  <h3>Header</h3>
+  <figure>
+    <img src="images/header-anatomy.svg" alt="Header diagram with labeled parts: 1 top bar, 2 logo, 3 main menu, 4 search, 5 wishlist, 6 cart" width="720" height="240">
+    <figcaption>The header parts and the class names used for each.</figcaption>
+  </figure>
+  <div class="code">
+    <span class="code__label">HTML</span>
+<pre><code><span class="c">&lt;!-- Header Start --&gt;</span>
+&lt;header class="site-header"&gt;
+  &lt;div class="top-bar"&gt;...Free shipping on orders over $99...&lt;/div&gt;
+  &lt;div class="site-header__main"&gt;
+    &lt;div class="container site-header__inner"&gt;
+      &lt;a class="site-header__logo" href="index.html"&gt;
+        &lt;img src="assets/images/logo.svg" alt="Ohmly home" width="120" height="32"&gt;
+      &lt;/a&gt;
+      &lt;nav class="main-nav" aria-label="Main"&gt;...&lt;/nav&gt;
+      &lt;div class="header-actions"&gt;...search, account, wishlist, cart...&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/header&gt;
+<span class="c">&lt;!-- Header End --&gt;</span></code></pre>
+  </div>
+
+  <h3>Sections</h3>
+  <p>Sections sit inside <code>&lt;main&gt;</code>. To remove a section, delete everything from its <code>Start</code> comment to its <code>End</code> comment. To reuse a section on another page, copy the same block and paste it where you want it.</p>
+
+  <h3>Footer</h3>
+  <div class="code">
+    <span class="code__label">HTML</span>
+<pre><code><span class="c">&lt;!-- Footer Start --&gt;</span>
+&lt;footer class="site-footer"&gt;
+  &lt;div class="container site-footer__grid"&gt;
+    &lt;div class="footer-widget"&gt;...about + social links...&lt;/div&gt;
+    &lt;div class="footer-widget"&gt;...shop links...&lt;/div&gt;
+    &lt;div class="footer-widget"&gt;...help links...&lt;/div&gt;
+    &lt;div class="footer-widget"&gt;...newsletter form...&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="site-footer__bottom"&gt;&amp;copy; 2026 Ohmly. All rights reserved.&lt;/div&gt;
+&lt;/footer&gt;
+<span class="c">&lt;!-- Footer End --&gt;</span></code></pre>
+  </div>
+  <a class="back-top" href="#top">Back to top</a>
+</section>
+<!-- 4. HTML Structure End -->
+
+<!-- 5. Customization Start -->
+<section id="customization">
+  <h2>Customization</h2>
+
+  <div class="callout">
+    <strong>The header and footer repeat on every page</strong>
+    <p>Static HTML has no shared "include" files, so the same header and footer code appears in all 24 pages. To change them everywhere at once, use VS Code's search and replace across files: press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>H</kbd> (<kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>H</kbd> on Mac).</p>
+  </div>
+
+  <h3>Changing the logo</h3>
+  <ol class="steps">
+    <li>Save your logo as <code>logo.svg</code> (best) or <code>logo.png</code>, about 120 × 32 pixels.</li>
+    <li>Put it in <code>HTML/assets/images/</code>, replacing the existing file.</li>
+    <li>If you used a different file name or size, update the <code>src</code>, <code>width</code>, and <code>height</code> in the header of every page, and change <code>alt</code> to your store's name.</li>
+  </ol>
+
+  <h3>Changing colors</h3>
+  <p>All colors live in one place. Choose the method that suits you.</p>
+  <p><strong>Easy method (no tools):</strong> open <code>HTML/assets/css/style.css</code>. The first rule is <code>:root</code>. Change the color codes there and save.</p>
+  <div class="code">
+    <span class="code__label">CSS</span>
+<pre><code>:root {
+  --color-bg: #F4F5F7;        <span class="c">/* page background */</span>
+  --color-surface: #FFFFFF;   <span class="c">/* cards, header */</span>
+  --color-text: #16181D;      <span class="c">/* headings and text */</span>
+  --color-muted: #5B616E;     <span class="c">/* secondary text */</span>
+  --color-border: #DADDE3;    <span class="c">/* lines and borders */</span>
+  --color-primary: #2B4EFF;   <span class="c">/* buttons and links */</span>
+}</code></pre>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Variable</th><th>Default</th><th>Used for</th></tr></thead>
+      <tbody>
+        <tr><td><code>--color-bg</code></td><td><span class="swatch" style="background:#F4F5F7"></span>#F4F5F7</td><td>Page background</td></tr>
+        <tr><td><code>--color-surface</code></td><td><span class="swatch" style="background:#FFFFFF"></span>#FFFFFF</td><td>Cards, header, drawers</td></tr>
+        <tr><td><code>--color-text</code></td><td><span class="swatch" style="background:#16181D"></span>#16181D</td><td>Headings and body text</td></tr>
+        <tr><td><code>--color-muted</code></td><td><span class="swatch" style="background:#5B616E"></span>#5B616E</td><td>Labels, secondary text</td></tr>
+        <tr><td><code>--color-border</code></td><td><span class="swatch" style="background:#DADDE3"></span>#DADDE3</td><td>Borders and dividers</td></tr>
+        <tr><td><code>--color-primary</code></td><td><span class="swatch" style="background:#2B4EFF"></span>#2B4EFF</td><td>Buttons, links, selected states</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout callout--tip">
+    <strong>Keep text readable</strong>
+    <p>White text sits on your primary color, so pick a primary that is dark enough. You can check any pair of colors with the free <a href="https://webaim.org/resources/contrastchecker/">WebAIM Contrast Checker</a>; aim for at least 4.5:1.</p>
+  </div>
+  <p><strong>Developer method (SCSS):</strong> change the same values in <code>HTML/scss/abstracts/_variables.scss</code>, then recompile (see <a href="#scss">Recompiling SCSS</a>).</p>
+  <div class="callout callout--warn">
+    <strong>Pick one method</strong>
+    <p>Recompiling SCSS rebuilds <code>style.css</code> from scratch, which erases anything you edited directly in <code>style.css</code>. If you plan to use SCSS, make all your changes in the SCSS files.</p>
+  </div>
+
+  <h3>Changing fonts</h3>
+  <ol class="steps">
+    <li>Pick a font on <a href="https://fonts.google.com/">Google Fonts</a> and copy its <code>&lt;link&gt;</code> code.</li>
+    <li>In the <code>&lt;head&gt;</code> of every page, replace the existing Google Fonts <code>&lt;link&gt;</code> with yours.</li>
+    <li>In <code>style.css</code>, change <code>--font-body</code> to the new font name, keeping the fallback fonts after it:</li>
+  </ol>
+  <div class="code">
+    <span class="code__label">CSS</span>
+<pre><code>--font-body: "Your Font", system-ui, -apple-system, sans-serif;</code></pre>
+  </div>
+
+  <h3>Changing menu items</h3>
+  <p>The main menu is inside <code>&lt;nav class="main-nav"&gt;</code> in the header. Each link is one list item:</p>
+  <div class="code">
+    <span class="code__label">HTML</span>
+<pre><code>&lt;nav class="main-nav" aria-label="Main"&gt;
+  &lt;ul class="main-nav__list"&gt;
+    &lt;li class="main-nav__item"&gt;&lt;a class="main-nav__link" href="blog.html"&gt;Blog&lt;/a&gt;&lt;/li&gt;
+    &lt;li class="main-nav__item"&gt;&lt;a class="main-nav__link" href="contact.html"&gt;Contact&lt;/a&gt;&lt;/li&gt;
+    <span class="c">&lt;!-- Add a new item: copy a line and change the link and text --&gt;</span>
+  &lt;/ul&gt;
+&lt;/nav&gt;</code></pre>
+  </div>
+  <p>Items with a dropdown (Home, Shop, Pages) contain a <code>&lt;ul class="dropdown"&gt;</code> or <code>&lt;div class="mega-menu"&gt;</code> list; edit the links inside it the same way. The mobile menu copies these links automatically, so you only edit them once per page.</p>
+
+  <h3 id="images">Changing images</h3>
+  <p>The simplest way is to replace a placeholder with your own image using the <strong>same file name</strong>. The page will pick it up without any code changes. For best results, use these sizes:</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Image</th><th>Folder</th><th>Recommended size</th></tr></thead>
+      <tbody>
+        <tr><td>Product photo</td><td><code>assets/images/products/</code></td><td>800 × 800 px, square</td></tr>
+        <tr><td>Home hero product</td><td><code>assets/images/hero/</code></td><td>1200 × 900 px, transparent PNG or WebP</td></tr>
+        <tr><td>Category icon</td><td><code>assets/images/categories/</code></td><td>400 × 400 px</td></tr>
+        <tr><td>Blog cover</td><td><code>assets/images/blog/</code></td><td>1200 × 750 px</td></tr>
+        <tr><td>Brand logos</td><td><code>assets/images/brands/</code></td><td>SVG, or PNG 240 × 80 px</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>The included images are <code>.svg</code> files. If your photo is a <code>.jpg</code>, <code>.png</code> or <code>.webp</code>, or uses a new file name, update the image's <code>src</code>. Always describe the image in <code>alt</code> (for example <code>alt="Black wireless headphones"</code>), because screen readers and search engines use it.</p>
+
+  <h3>Editing product cards</h3>
+  <figure>
+    <img src="images/product-card-anatomy.svg" alt="Product card diagram with labeled parts: 1 image, 2 sale badge, 3 product name, 4 spec list, 5 price, 6 add to cart button" width="720" height="420">
+    <figcaption>Each product card has the same six parts.</figcaption>
+  </figure>
+  <div class="code">
+    <span class="code__label">HTML</span>
+<pre><code><span class="c">&lt;!-- Product Card Start --&gt;</span>
+&lt;article class="product-card"&gt;
+  &lt;a class="product-card__media" href="product-details.html"&gt;
+    &lt;img src="assets/images/products/headphones.svg" alt="Aero Wireless Headphones" width="400" height="400"&gt;
+    &lt;span class="badge badge--sale"&gt;-20%&lt;/span&gt;  <span class="c">&lt;!-- delete this line for no badge --&gt;</span>
+  &lt;/a&gt;
+  &lt;div class="product-card__body"&gt;
+    &lt;h3 class="product-card__title"&gt;
+      &lt;a href="product-details.html"&gt;Aero Wireless Headphones&lt;/a&gt;
+    &lt;/h3&gt;
+    &lt;dl class="spec-list"&gt;
+      &lt;div&gt;&lt;dt&gt;Battery&lt;/dt&gt;&lt;dd&gt;30 h&lt;/dd&gt;&lt;/div&gt;
+      &lt;div&gt;&lt;dt&gt;Weight&lt;/dt&gt;&lt;dd&gt;250 g&lt;/dd&gt;&lt;/div&gt;
+    &lt;/dl&gt;
+    &lt;div class="product-card__footer"&gt;
+      &lt;p class="price price--sale"&gt;&lt;ins class="price__now"&gt;$119&lt;/ins&gt;&lt;del class="price__was"&gt;$149&lt;/del&gt;&lt;/p&gt;
+      &lt;button class="btn btn--primary" type="button" data-add-to-cart&gt;Add to cart&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/article&gt;
+<span class="c">&lt;!-- Product Card End --&gt;</span></code></pre>
+  </div>
+  <ul>
+    <li><strong>Add a product:</strong> copy one whole card (Start to End comment) and paste it next to the others.</li>
+    <li><strong>Specs:</strong> each <code>&lt;div&gt;</code> inside <code>spec-list</code> is one row. Two or three rows fit best.</li>
+    <li><strong>No discount:</strong> remove the <code>&lt;del&gt;</code> old price and the sale badge.</li>
+    <li><strong>Badge styles:</strong> <code>badge--sale</code>, <code>badge--new</code>, <code>badge--stock</code>.</li>
+  </ul>
+
+  <h3 id="scss">Recompiling SCSS (optional, for developers)</h3>
+  <p>You only need this if you edit files in the <code>scss</code> folder.</p>
+  <ol class="steps">
+    <li>Install <a href="https://nodejs.org/">Node.js</a> (the LTS version).</li>
+    <li>Open a terminal in the main template folder (the one containing <code>package.json</code>). In VS Code: <em>Terminal → New Terminal</em>.</li>
+    <li>Run these commands:</li>
+  </ol>
+  <div class="code">
+    <span class="code__label">Terminal</span>
+<pre><code>npm install         <span class="c"># once, downloads the Sass compiler</span>
+npm run build       <span class="c"># rebuilds style.css and style.min.css</span>
+npm run watch       <span class="c"># rebuilds automatically every time you save</span></code></pre>
+  </div>
+  <a class="back-top" href="#top">Back to top</a>
+</section>
+<!-- 5. Customization End -->
+
+<!-- 6. JavaScript Start -->
+<section id="javascript">
+  <h2>JavaScript features</h2>
+  <p>All features are in <code>HTML/assets/js/main.js</code>. The top of that file has a settings block. Change <code>true</code> to <code>false</code> to turn a feature off across the whole site.</p>
+  <div class="code">
+    <span class="code__label">JavaScript</span>
+<pre><code>const SETTINGS = {
+  preloader: true,          <span class="c">// loading screen on page load</span>
+  stickyHeader: true,       <span class="c">// header stays visible when scrolling</span>
+  newsletterPopup: true,    <span class="c">// shows once per visitor</span>
+  newsletterDelay: 5000,    <span class="c">// milliseconds before the popup appears</span>
+  quickView: true,          <span class="c">// "Quick view" modal on product cards</span>
+  backToTop: true,          <span class="c">// arrow button at bottom right</span>
+  countdown: true           <span class="c">// deal timers</span>
+};</code></pre>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Feature</th><th>Where it appears</th><th>How to turn it off</th></tr></thead>
+      <tbody>
+        <tr><td>Mobile menu</td><td>All pages, small screens</td><td>Always on (required for navigation)</td></tr>
+        <tr><td>Mega menu</td><td>Header "Shop" item</td><td>Delete the <code>mega-menu</code> block inside that menu item</td></tr>
+        <tr><td>Off-canvas cart</td><td>Cart icon in header</td><td>Change the cart icon link to <code>cart.html</code> and remove <code>data-open-cart</code></td></tr>
+        <tr><td>Quantity buttons</td><td>Product details, cart</td><td>Remove the <code>data-qty</code> attribute</td></tr>
+        <tr><td>Product gallery</td><td>Product details</td><td>Delete the thumbnails block; the main image still shows</td></tr>
+        <tr><td>Variant select</td><td>Product details (color, storage)</td><td>Delete the <code>product-variants</code> block</td></tr>
+        <tr><td>Filters</td><td>Shop pages sidebar</td><td>Delete the <code>shop-filters</code> block (see note below)</td></tr>
+        <tr><td>Grid/list toggle</td><td>Shop pages</td><td>Delete the <code>view-toggle</code> buttons</td></tr>
+        <tr><td>Tabs</td><td>Product details, my account</td><td>Always on where the <code>data-tabs</code> attribute is present</td></tr>
+        <tr><td>Accordion</td><td>FAQ, filters</td><td>Always on where the <code>data-accordion</code> attribute is present</td></tr>
+        <tr><td>Quick view modal</td><td>Product cards</td><td><code>quickView: false</code></td></tr>
+        <tr><td>Countdown timer</td><td>Deal sections, coming soon</td><td><code>countdown: false</code></td></tr>
+        <tr><td>Newsletter popup</td><td>Home pages</td><td><code>newsletterPopup: false</code></td></tr>
+        <tr><td>Form validation</td><td>Contact, login, register, checkout</td><td>Remove <code>data-validate</code> from the form (the browser's basic checks still apply)</td></tr>
+        <tr><td>Preloader</td><td>All pages</td><td><code>preloader: false</code></td></tr>
+        <tr><td>Back to top</td><td>All pages</td><td><code>backToTop: false</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Setting a countdown date</h3>
+  <p>Each timer reads its end date from the <code>data-countdown</code> attribute. Use the format <code>YYYY-MM-DDTHH:MM:SS</code>:</p>
+  <div class="code">
+    <span class="code__label">HTML</span>
+<pre><code>&lt;div class="countdown" data-countdown="2026-12-31T23:59:59"&gt;Ends December 31&lt;/div&gt;</code></pre>
+  </div>
+  <p>For an always-running demo timer, use a number of days instead, such as <code>data-countdown="+3d"</code>. It counts down from 3 days each time the page loads. When a fixed date passes, the timer shows "This deal has ended". The text inside the tag is shown if JavaScript is off.</p>
+  <div class="callout">
+    <strong>Filters and cart are visual only</strong>
+    <p>Shop filters, the cart, and the wishlist show how these features look and feel. They do not filter real products or remember items between pages, because that needs a store backend.</p>
+  </div>
+  <a class="back-top" href="#top">Back to top</a>
+</section>
+<!-- 6. JavaScript End -->
+
+<!-- 7. Forms Start -->
+<section id="forms">
+  <h2>Forms</h2>
+  <div class="callout callout--warn">
+    <strong>Forms do not send anything by default</strong>
+    <p>The contact, newsletter, login, register, and checkout forms check what the visitor typed and show error or success messages, but they do not send emails, store data, or take payments. This is normal for HTML templates.</p>
+  </div>
+
+  <h3>Making the contact and newsletter forms work</h3>
+  <p>The easiest way is a form service. Sign up with one (for example Formspree, or Netlify Forms if you host on Netlify), then set the form's <code>action</code> to the address they give you:</p>
+  <div class="code">
+    <span class="code__label">HTML</span>
+<pre><code>&lt;form class="contact-form" action="https://formspree.io/f/your-form-id" method="POST" data-validate&gt;
+  ...
+&lt;/form&gt;</code></pre>
+  </div>
+  <p>Many demo forms have a <code>data-success="..."</code> attribute. It shows that message instead of sending the form. <strong>Delete <code>data-success</code> when you connect a real form service</strong>, otherwise the form will never be sent. On the register page, <code>data-match="#reg-password"</code> checks that both passwords are the same; you can use it on any field.</p>
+  <p>For newsletters, most email marketing services (such as Mailchimp) provide an embed form action URL you can paste the same way. These services have their own pricing and terms.</p>
+
+  <h3>Login, accounts, cart, and checkout</h3>
+  <p>These need a backend: a platform such as Shopify or WooCommerce, or custom code in a framework such as Laravel or Node.js. A developer can use these HTML pages as the design and connect them to that backend.</p>
+  <a class="back-top" href="#top">Back to top</a>
+</section>
+<!-- 7. Forms End -->
+
+<!-- 8. Browser Support Start -->
+<section id="browser-support">
+  <h2>Browser support</h2>
+  <p>Ohmly is tested in the latest two versions of:</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Browser</th><th>Desktop</th><th>Mobile</th></tr></thead>
+      <tbody>
+        <tr><td>Google Chrome</td><td>Yes</td><td>Android</td></tr>
+        <tr><td>Mozilla Firefox</td><td>Yes</td><td>Android</td></tr>
+        <tr><td>Apple Safari</td><td>macOS</td><td>iPhone, iPad</td></tr>
+        <tr><td>Microsoft Edge</td><td>Yes</td><td>Not tested</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Internet Explorer is not supported. Layouts are tested at screen widths of 360, 768, 1024, and 1440 pixels.</p>
+  <a class="back-top" href="#top">Back to top</a>
+</section>
+<!-- 8. Browser Support End -->
+
+<!-- 9. Credits Start -->
+<section id="credits">
+  <h2>Sources &amp; credits</h2>
+  <p>Every third-party asset used in Ohmly is listed below. Full license texts are in the <code>Licensing</code> folder.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Asset</th><th>Type</th><th>License</th><th>In download?</th></tr></thead>
+      <tbody>
+        <tr><td><a href="https://fonts.google.com/specimen/Geist">Geist</a></td><td>Font</td><td>SIL Open Font License 1.1</td><td>Loaded from Google Fonts</td></tr>
+        <tr><td>Icons</td><td>Inline SVG icons</td><td>Original, made for Ohmly</td><td>Yes, inside each HTML page</td></tr>
+        <tr><td>Product illustrations, logos, blog covers</td><td>SVG images</td><td>Original, made for Ohmly</td><td>Yes, <code>assets/images/</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>No other third-party libraries are used: carousels, menus and all other features are plain JavaScript written for this template. Brand names shown in the demo (Norvik, Aurelo, Halden, Tovera, Pellan, Vesso) are fictional.</p>
+  <a class="back-top" href="#top">Back to top</a>
+</section>
+<!-- 9. Credits End -->
+
+<!-- 10. Changelog & Support Start -->
+<section id="changelog">
+  <h2>Changelog &amp; support</h2>
+
+  <h3>Changelog</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Version</th><th>Date</th><th>Changes</th></tr></thead>
+      <tbody>
+        <tr><td>1.0.0</td><td>September 2026</td><td>Initial release</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Getting help</h3>
+  <p>If this guide doesn't answer your question, contact us through the support form on our <a href="https://themeforest.net/user/[username]">ThemeForest profile</a>. We usually reply within 24 to 48 hours on business days (GMT+6).</p>
+  <p>Support covers:</p>
+  <ul>
+    <li>Questions about how to use and set up the template</li>
+    <li>Bugs and issues in the template files</li>
+  </ul>
+  <p>Support does not cover custom changes, connecting the template to a backend, or problems caused by third-party code. See Envato's <a href="https://themeforest.net/page/item_support_policy">item support policy</a> for details.</p>
+  <div class="callout callout--tip">
+    <strong>Enjoying Ohmly?</strong>
+    <p>A rating on your ThemeForest <em>Downloads</em> page helps us keep improving the template. Thank you!</p>
+  </div>
+  <a class="back-top" href="#top">Back to top</a>
+</section>
+<!-- 10. Changelog & Support End -->
+
+</div>
+</main>
+
+<script>
+/* Documentation helpers: 1. highlight current section in sidebar  2. copy buttons */
+(function () {
+  "use strict";
+
+  // 1. Sidebar highlight
+  var links = document.querySelectorAll(".sidebar a");
+  if ("IntersectionObserver" in window) {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        links.forEach(function (link) {
+          link.classList.toggle("is-active", link.getAttribute("href") === "#" + entry.target.id);
+        });
+      });
+    }, { rootMargin: "-20% 0px -70% 0px" });
+    document.querySelectorAll("main section").forEach(function (s) { observer.observe(s); });
+  }
+
+  // 2. Copy buttons
+  document.querySelectorAll(".code").forEach(function (block) {
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "copy-btn";
+    btn.textContent = "Copy";
+    btn.addEventListener("click", function () {
+      var text = block.querySelector("code").innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = "Copied";
+        setTimeout(function () { btn.textContent = "Copy"; }, 1500);
+      });
+    });
+    block.appendChild(btn);
+  });
+})();
+</script>
 </body>
 </html>

@@ -1,7 +1,14 @@
 @use "sass:map";
 @use "variables" as *;
 
+// Mobile-first media query: @include up(lg) { ... }
 @mixin up($bp) {
   @media (min-width: map.get($breakpoints, $bp)) { @content; }
 }
-@mixin flex-center { display: flex; align-items: center; justify-content: center; }
+// Desktop-down media query: @include down(lg) { ... }
+@mixin down($bp) {
+  @media (max-width: (map.get($breakpoints, $bp) - 0.02px)) { @content; }
+}
+@mixin hover {
+  @media (hover: hover) { &:hover { @content; } }
+}

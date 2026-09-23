@@ -1,14 +1,15 @@
 {
-  "name": "themeforest-template",
+  "name": "ohmly-html-template",
   "version": "1.0.0",
   "private": true,
   "scripts": {
     "build": "sass HTML/scss/style.scss HTML/assets/css/style.css --no-source-map",
     "build:min": "sass HTML/scss/style.scss HTML/assets/css/style.min.css --style=compressed --no-source-map",
     "watch": "sass --watch HTML/scss/style.scss HTML/assets/css/style.css",
-    "zip": "zip -r package.zip HTML Documentation Licensing -x '*.gitkeep'"
+    "zip": "rm -f ohmly-html-template.zip && zip -r ohmly-html-template.zip HTML Documentation Licensing -x '*.gitkeep' '*.DS_Store'"
   },
   "devDependencies": {
     "sass": "^1.80.0"
-  }
+  },
+  "description": "Ohmly - Electronics eCommerce HTML Template"
 }
