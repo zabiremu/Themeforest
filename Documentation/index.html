@@ -18,7 +18,7 @@
   --ink: #16181D;
   --graphite: #5B616E;
   --line: #DADDE3;
-  --cobalt: #2B4EFF;
+  --cobalt: #0D0E12;
   --tip: #15803D;
   --warn: #C2410C;
   --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -370,12 +370,13 @@ tr:last-child td { border-bottom: 0; }
   <div class="code">
     <span class="code__label">CSS</span>
 <pre><code>:root {
-  --color-bg: #F4F5F7;        <span class="c">/* page background */</span>
+  --color-bg: #F3F3EF;        <span class="c">/* page background */</span>
   --color-surface: #FFFFFF;   <span class="c">/* cards, header */</span>
-  --color-text: #16181D;      <span class="c">/* headings and text */</span>
-  --color-muted: #5B616E;     <span class="c">/* secondary text */</span>
-  --color-border: #DADDE3;    <span class="c">/* lines and borders */</span>
-  --color-primary: #2B4EFF;   <span class="c">/* buttons and links */</span>
+  --color-text: #0D0E12;      <span class="c">/* headings, text, dark panels */</span>
+  --color-muted: #62656E;     <span class="c">/* secondary text */</span>
+  --color-border: #E2E2DB;    <span class="c">/* lines and borders */</span>
+  --color-primary: #0D0E12;   <span class="c">/* main buttons and links */</span>
+  --color-accent: #C6F432;    <span class="c">/* signature highlight color */</span>
 }</code></pre>
   </div>
 
@@ -383,18 +384,19 @@ tr:last-child td { border-bottom: 0; }
     <table>
       <thead><tr><th>Variable</th><th>Default</th><th>Used for</th></tr></thead>
       <tbody>
-        <tr><td><code>--color-bg</code></td><td><span class="swatch" style="background:#F4F5F7"></span>#F4F5F7</td><td>Page background</td></tr>
+        <tr><td><code>--color-bg</code></td><td><span class="swatch" style="background:#F3F3EF"></span>#F3F3EF</td><td>Page background</td></tr>
         <tr><td><code>--color-surface</code></td><td><span class="swatch" style="background:#FFFFFF"></span>#FFFFFF</td><td>Cards, header, drawers</td></tr>
-        <tr><td><code>--color-text</code></td><td><span class="swatch" style="background:#16181D"></span>#16181D</td><td>Headings and body text</td></tr>
-        <tr><td><code>--color-muted</code></td><td><span class="swatch" style="background:#5B616E"></span>#5B616E</td><td>Labels, secondary text</td></tr>
-        <tr><td><code>--color-border</code></td><td><span class="swatch" style="background:#DADDE3"></span>#DADDE3</td><td>Borders and dividers</td></tr>
-        <tr><td><code>--color-primary</code></td><td><span class="swatch" style="background:#2B4EFF"></span>#2B4EFF</td><td>Buttons, links, selected states</td></tr>
+        <tr><td><code>--color-text</code></td><td><span class="swatch" style="background:#0D0E12"></span>#0D0E12</td><td>Headings, body text, dark hero panels</td></tr>
+        <tr><td><code>--color-muted</code></td><td><span class="swatch" style="background:#62656E"></span>#62656E</td><td>Labels, secondary text</td></tr>
+        <tr><td><code>--color-border</code></td><td><span class="swatch" style="background:#E2E2DB"></span>#E2E2DB</td><td>Borders and dividers</td></tr>
+        <tr><td><code>--color-primary</code></td><td><span class="swatch" style="background:#0D0E12"></span>#0D0E12</td><td>Main buttons, links, selected states</td></tr>
+        <tr><td><code>--color-accent</code></td><td><span class="swatch" style="background:#C6F432"></span>#C6F432</td><td>Highlight color: accent buttons, badges, ticker, counts</td></tr>
       </tbody>
     </table>
   </div>
   <div class="callout callout--tip">
     <strong>Keep text readable</strong>
-    <p>White text sits on your primary color, so pick a primary that is dark enough. You can check any pair of colors with the free <a href="https://webaim.org/resources/contrastchecker/">WebAIM Contrast Checker</a>; aim for at least 4.5:1.</p>
+    <p>White text sits on your primary color and dark text sits on your accent color, so keep the primary dark and the accent light. You can check any pair of colors with the free <a href="https://webaim.org/resources/contrastchecker/">WebAIM Contrast Checker</a>; aim for at least 4.5:1.</p>
   </div>
   <p><strong>Developer method (SCSS):</strong> change the same values in <code>HTML/scss/abstracts/_variables.scss</code>, then recompile (see <a href="#scss">Recompiling SCSS</a>).</p>
   <div class="callout callout--warn">
@@ -403,14 +405,16 @@ tr:last-child td { border-bottom: 0; }
   </div>
 
   <h3>Changing fonts</h3>
+  <p>The template uses three fonts, stored in <code>HTML/assets/fonts/</code> so pages work offline and load no third-party requests: <strong>Bricolage Grotesque</strong> for headings, <strong>Geist</strong> for body text and <strong>Geist Mono</strong> for specs and small labels.</p>
   <ol class="steps">
-    <li>Pick a font on <a href="https://fonts.google.com/">Google Fonts</a> and copy its <code>&lt;link&gt;</code> code.</li>
-    <li>In the <code>&lt;head&gt;</code> of every page, replace the existing Google Fonts <code>&lt;link&gt;</code> with yours.</li>
-    <li>In <code>style.css</code>, change <code>--font-body</code> to the new font name, keeping the fallback fonts after it:</li>
+    <li>Download your font in <code>.woff2</code> format (for example from <a href="https://fonts.google.com/">Google Fonts</a>) and copy it into <code>HTML/assets/fonts/</code>.</li>
+    <li>At the top of <code>style.css</code>, change the <code>src</code> of the matching <code>@font-face</code> rule to your file name.</li>
+    <li>Change the font name in <code>--font-display</code>, <code>--font-body</code> or <code>--font-mono</code>, keeping the fallback fonts after it:</li>
   </ol>
   <div class="code">
     <span class="code__label">CSS</span>
-<pre><code>--font-body: "Your Font", system-ui, -apple-system, sans-serif;</code></pre>
+<pre><code>--font-display: "Your Heading Font", system-ui, sans-serif;
+--font-body: "Your Body Font", system-ui, -apple-system, sans-serif;</code></pre>
   </div>
 
   <h3>Changing menu items</h3>
@@ -605,7 +609,9 @@ npm run watch       <span class="c"># rebuilds automatically every time you save
     <table>
       <thead><tr><th>Asset</th><th>Type</th><th>License</th><th>In download?</th></tr></thead>
       <tbody>
-        <tr><td><a href="https://fonts.google.com/specimen/Geist">Geist</a></td><td>Font</td><td>SIL Open Font License 1.1</td><td>Loaded from Google Fonts</td></tr>
+        <tr><td><a href="https://fonts.google.com/specimen/Bricolage+Grotesque">Bricolage Grotesque</a></td><td>Font</td><td>SIL Open Font License 1.1</td><td>Included in assets/fonts</td></tr>
+        <tr><td><a href="https://fonts.google.com/specimen/Geist">Geist</a></td><td>Font</td><td>SIL Open Font License 1.1</td><td>Included in assets/fonts</td></tr>
+        <tr><td><a href="https://fonts.google.com/specimen/Geist+Mono">Geist Mono</a></td><td>Font</td><td>SIL Open Font License 1.1</td><td>Included in assets/fonts</td></tr>
         <tr><td>Icons</td><td>Inline SVG icons</td><td>Original, made for Ohmly</td><td>Yes, inside each HTML page</td></tr>
         <tr><td>Product illustrations, logos, blog covers</td><td>SVG images</td><td>Original, made for Ohmly</td><td>Yes, <code>assets/images/</code></td></tr>
       </tbody>

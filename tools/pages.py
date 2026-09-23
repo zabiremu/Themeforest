@@ -170,10 +170,11 @@ def field(id_, label, type_="text", required=True, auto="", extra="", full=False
     return f'<div class="field{f}"><label class="field-label" for="{id_}">{label}{req}</label>{ctl}{h}</div>'
 
 
-def section_head(title, text="", right="", tag="h2", id_=""):
+def section_head(title, text="", right="", tag="h2", id_="", eyebrow=""):
     i = f' id="{id_}"' if id_ else ""
     t = f"<p>{text}</p>" if text else ""
-    return f'<div class="section-head"><div><{tag}{i}>{title}</{tag}>{t}</div>{right}</div>'
+    e = f'<p class="eyebrow">{eyebrow}</p>' if eyebrow else ""
+    return f'<div class="section-head"><div>{e}<{tag}{i}>{title}</{tag}>{t}</div>{right}</div>'
 
 
 def services():
@@ -197,11 +198,20 @@ def brands():
 <!-- Brands Start -->
 <section class="section section--tight" aria-labelledby="brands-title">
   <div class="container">
-    {section_head('Brands we carry', right='<a class="text-btn" href="shop.html">Shop by brand</a>', id_='brands-title')}
+    {section_head('Brands we carry', right='<a class="text-btn" href="shop.html">Shop by brand</a>', id_='brands-title', eyebrow='Official retailer')}
     <div class="brands">{items}</div>
   </div>
 </section>
 <!-- Brands End -->"""
+
+
+def ticker(items=None):
+    items = items or ["Free shipping over $99", "2-year warranty", "30-day returns", "Specs on every card", "Price match promise", "Pay in 4 at checkout"]
+    lis = "".join(f"<li>{i}</li>" for i in items)
+    return f"""
+<!-- Ticker Start -->
+<div class="ticker" aria-label="Store promises"><div class="ticker__track"><ul>{lis}</ul><ul aria-hidden="true">{lis}</ul></div></div>
+<!-- Ticker End -->"""
 
 
 def newsletter_band():
@@ -211,7 +221,8 @@ def newsletter_band():
   <div class="container">
     <div class="newsletter-band">
       <div>
-        <h2 id="newsletter-title">Get 10% off your first order</h2>
+        <p class="eyebrow eyebrow--dark">Newsletter</p>
+        <h2 id="newsletter-title">Get <span class="mark">10% off</span> your first order</h2>
         <p>New arrivals, honest reviews and member-only deals, twice a month.</p>
       </div>
       <form class="newsletter-form" action="#" data-validate data-success="Thanks for subscribing. Your code is on its way.">
@@ -248,6 +259,7 @@ SPRITE = """<svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="
   <symbol id="i-chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></symbol>
   <symbol id="i-chevron-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></symbol>
   <symbol id="i-chevron-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5.5l6.5 6.5-6.5 6.5"/></symbol>
   <symbol id="i-arrow-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5.5 11.5L12 5l6.5 6.5"/></symbol>
   <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></symbol>
   <symbol id="i-minus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M5 12h14"/></symbol>
@@ -329,7 +341,7 @@ def header(current):
   <div class="site-header__main">
     <div class="container site-header__inner">
       <button class="icon-btn menu-toggle" type="button" data-open-drawer="mobile-menu" aria-label="Open menu">{icon('menu')}</button>
-      <a class="site-header__logo" href="index.html"><img src="{IMG}/logo.svg" alt="{BRAND} home" width="120" height="32"></a>
+      <a class="site-header__logo" href="index.html"><img src="{IMG}/logo.svg" alt="{BRAND} home" width="132" height="36"></a>
       {nav(current)}
       <div class="header-actions">
         <form class="header-search" action="shop.html" role="search">
@@ -358,7 +370,7 @@ def footer():
   <div class="container">
     <div class="site-footer__grid">
       <div class="footer-widget">
-        <img class="footer-logo" src="{IMG}/logo-light.svg" alt="{BRAND}" width="120" height="32" loading="lazy">
+        <img class="footer-logo" src="{IMG}/logo-light.svg" alt="{BRAND}" width="132" height="36" loading="lazy">
         <p>Electronics picked, tested and explained, with specs you can compare at a glance.</p>
         <ul class="social-links">
           <li><a href="#">Instagram</a></li><li><a href="#">YouTube</a></li><li><a href="#">Facebook</a></li><li><a href="#">X</a></li>
@@ -381,6 +393,7 @@ def footer():
       </div>
     </div>
   </div>
+  <p class="site-footer__wordmark" aria-hidden="true">{BRAND.lower()}</p>
   <div class="container site-footer__bottom">
     <p>&copy; 2026 {BRAND}. All rights reserved.</p>
     <p class="secure-note">{icon('lock')}Secure checkout</p>
@@ -480,9 +493,7 @@ def layers(newsletter=False):
 
 def page(filename, title, desc, body, current=None, body_class="", newsletter=False, bare=False):
     current = current or filename
-    fonts = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n'
-             '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
-             '<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;display=swap" rel="stylesheet">')
+    fonts = '<link rel="preload" href="assets/fonts/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>'
     cls = f' class="{body_class}"' if body_class else ""
     if bare:
         content = body
@@ -503,7 +514,7 @@ def page(filename, title, desc, body, current=None, body_class="", newsletter=Fa
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title} | {BRAND}</title>
 <meta name="description" content="{desc}">
-<meta name="theme-color" content="#FFFFFF">
+<meta name="theme-color" content="#0D0E12">
 <link rel="icon" href="{IMG}/favicon.svg" type="image/svg+xml">
 {fonts}
 <link rel="stylesheet" href="assets/css/style.css">
@@ -544,7 +555,7 @@ def categories_row():
 <!-- Categories Start -->
 <section class="section" aria-labelledby="categories-title">
   <div class="container">
-    {section_head('Shop by category', right='<a class="text-btn" href="shop.html">All products</a>', id_='categories-title')}
+    {section_head('Shop by category', right='<a class="text-btn" href="shop.html">All products</a>', id_='categories-title', eyebrow='Categories')}
     <div class="category-row">{tiles}</div>
   </div>
 </section>
@@ -563,7 +574,7 @@ def deal_section():
         <span class="badge badge--sale">Save $150</span>
       </div>
       <div class="deal__body">
-        <p class="text-muted">Deal of the week</p>
+        <p class="eyebrow">Deal of the week</p>
         <h2 id="deal-title">Slate 14 Laptop</h2>
         {spec_list([('Processor', '8-core, 4.4 GHz'), ('Memory', '16 GB'), ('Storage', '512 GB SSD'), ('Battery', 'Up to 14 h'), ('Weight', '1.3 kg')])}
         {price(s, 'lg')}
@@ -594,7 +605,7 @@ def compare_strip():
 <!-- Compare Strip Start -->
 <section class="section section--surface" id="compare" aria-labelledby="compare-title">
   <div class="container">
-    {section_head('Compare our audio range', 'Three models, the same five specs. Best values are marked in green.', '<a class="text-btn" href="compare.html">Open full comparison</a>', id_='compare-title')}
+    {section_head('Compare our audio range', 'Three models, the same five specs. Best values are highlighted.', '<a class="text-btn" href="compare.html">Open full comparison</a>', id_='compare-title', eyebrow='Side by side')}
     <div class="table-scroll">
       <table class="compare-table">
         <caption class="visually-hidden">Headphone and earbud comparison</caption>
@@ -615,33 +626,43 @@ def home1():
     body = f"""
 <!-- Hero Start -->
 <section class="hero" aria-labelledby="hero-title">
-  <div class="container hero__inner">
-    <div class="hero__copy">
-      <h1 id="hero-title">Aero Wireless. 30 hours of sound in 250 grams.</h1>
-      <p class="lead">Adaptive noise cancelling, 40 mm drivers, and a 10-minute USB-C charge that plays for 5 hours.</p>
-      <div class="btn-row">
-        <a class="btn btn--primary" href="product-details.html">Shop Aero from $119</a>
-        <a class="btn btn--light" href="#compare">Compare models</a>
+  <div class="container">
+    <div class="hero__stage">
+      <div class="hero__copy">
+        <p class="eyebrow eyebrow--dark">New &middot; Aero Wireless</p>
+        <h1 id="hero-title">Hear every <span class="mark">detail.</span> Nothing else.</h1>
+        <p class="lead">Adaptive noise cancelling, 40 mm drivers and a 10-minute USB-C charge that plays for 5 hours.</p>
+        <div class="btn-row">
+          <a class="btn btn--accent" href="product-details.html">Shop Aero from $119{icon('arrow-right')}</a>
+          <a class="btn btn--ghost-light" href="#compare">Compare models</a>
+        </div>
+        <dl class="hero__stats">
+          <div><dt>Battery</dt><dd>30<small>h</small></dd></div>
+          <div><dt>Drivers</dt><dd>40<small>mm</small></dd></div>
+          <div><dt>Weight</dt><dd>250<small>g</small></dd></div>
+        </dl>
       </div>
-      <ul class="hero__facts">
-        <li>{icon('truck')}Free shipping over $99</li>
-        <li>{icon('shield')}2-year warranty</li>
-        <li>{icon('return')}30-day returns</li>
-      </ul>
+      <div class="annotated">
+        <img class="annotated__img" src="{IMG}/hero/hero-headphones.svg" alt="Aero Wireless Headphones in silver" width="600" height="450">
+        <ul class="annotated__notes">{lis}</ul>
+      </div>
     </div>
-    <div class="annotated">
-      <img class="annotated__img" src="{IMG}/hero/hero-headphones.svg" alt="Aero Wireless Headphones in graphite" width="600" height="450">
-      <ul class="annotated__notes">{lis}</ul>
-    </div>
+    <ul class="hero__facts">
+      <li>{icon('truck')}Free shipping over $99</li>
+      <li>{icon('shield')}2-year warranty</li>
+      <li>{icon('return')}30-day returns</li>
+      <li>{icon('support')}Real product advice, 7 days a week</li>
+    </ul>
   </div>
 </section>
 <!-- Hero End -->
+{ticker()}
 {categories_row()}
 
 <!-- Featured Products Start -->
 <section class="section section--surface" aria-labelledby="picks-title">
   <div class="container">
-    {section_head("This week's picks", right='<a class="text-btn" href="shop.html">View all</a>', id_='picks-title')}
+    {section_head("This week's picks", right='<a class="text-btn" href="shop.html">View all</a>', id_='picks-title', eyebrow='Curated weekly')}
     {tabs_products('picks', [('Best sellers', ['aero', 'nova', 'echo', 'orbit']), ('New arrivals', ['pulse', 'lumen', 'key75', 'arc']), ('On sale', ['slate', 'drift', 'echo', 'aero'])])}
   </div>
 </section>
@@ -669,12 +690,13 @@ def home2():
   <div class="container hero-split__grid">
     <div class="hero-split__main">
       <div>
-        <h1 id="hero-title">Your desk, upgraded.</h1>
+        <p class="eyebrow eyebrow--dark">Workspace edit 2026</p>
+        <h1 id="hero-title">Your desk, <span class="mark">upgraded.</span></h1>
         <p>Laptops, monitors and keyboards that work well together, chosen by people who use them all day.</p>
       </div>
       <div class="btn-row">
-        <a class="btn btn--primary" href="shop.html">Shop computing</a>
-        <a class="btn btn--light" href="index-3.html#bundle">See the desk bundle</a>
+        <a class="btn btn--accent" href="shop.html">Shop computing{icon('arrow-right')}</a>
+        <a class="btn btn--ghost-light" href="index-3.html#bundle">See the desk bundle</a>
       </div>
       <img src="{IMG}/hero/laptop-on-dark.svg" alt="Slate 14 Laptop" width="400" height="400">
     </div>
@@ -691,11 +713,12 @@ def home2():
   </div>
 </section>
 <!-- Hero End -->
+{ticker(["Laptops", "Monitors", "Keyboards", "Docks and hubs", "Webcams", "Desk lamps", "Chargers"])}
 
 <!-- New Arrivals Start -->
 <section class="section" aria-labelledby="new-title">
   <div class="container carousel" data-carousel>
-    {section_head('New arrivals', 'Fresh stock from this month, with full specs on every card.', f'<div class="carousel__nav"><button class="icon-btn" type="button" data-carousel-prev aria-label="Previous products">{icon("chevron-left")}</button><button class="icon-btn" type="button" data-carousel-next aria-label="Next products">{icon("chevron-right")}</button></div>', id_='new-title')}
+    {section_head('New arrivals', 'Fresh stock from this month, with full specs on every card.', f'<div class="carousel__nav"><button class="icon-btn" type="button" data-carousel-prev aria-label="Previous products">{icon("chevron-left")}</button><button class="icon-btn" type="button" data-carousel-next aria-label="Next products">{icon("chevron-right")}</button></div>', id_='new-title', eyebrow='Just landed')}
     <div class="carousel__track">{track}</div>
   </div>
 </section>
@@ -719,7 +742,7 @@ def home2():
 <!-- Best Sellers Start -->
 <section class="section section--surface" aria-labelledby="best-title">
   <div class="container">
-    {section_head('Best sellers this month', right='<a class="text-btn" href="shop.html">See all</a>', id_='best-title')}
+    {section_head('Best sellers this month', right='<a class="text-btn" href="shop.html">See all</a>', id_='best-title', eyebrow='Top 8')}
     <ol class="ranked">{ranked}</ol>
   </div>
 </section>
@@ -728,7 +751,7 @@ def home2():
 <!-- Journal Start -->
 <section class="section" aria-labelledby="journal-title">
   <div class="container">
-    {section_head('Guides and reviews', 'Plain-language advice before you buy.', '<a class="text-btn" href="blog.html">Read the journal</a>', id_='journal-title')}
+    {section_head('Guides and reviews', 'Plain-language advice before you buy.', '<a class="text-btn" href="blog.html">Read the journal</a>', id_='journal-title', eyebrow='The journal')}
     <div class="post-grid">{posts}</div>
   </div>
 </section>
@@ -761,10 +784,11 @@ def home3():
   <div class="container mosaic__grid">
     <div class="mosaic__tile mosaic__tile--lead">
       <div>
+        <p class="eyebrow">1,200+ products</p>
         <h1 id="hero-title">Tech for work, play and everything between.</h1>
         <p>Browse 1,200 products by category, compare specs side by side, and get free shipping over $99.</p>
       </div>
-      <a class="btn btn--light" href="shop.html">Shop all products</a>
+      <a class="btn btn--primary" href="shop.html">Shop all products{icon('arrow-right')}</a>
       <img src="{IMG}/hero/headphones-on-color.svg" alt="" width="400" height="400">
     </div>
     {t}
@@ -775,7 +799,7 @@ def home3():
 <!-- Deals Start -->
 <section class="section" aria-labelledby="deals-title">
   <div class="container">
-    {section_head('Deals ending soon', 'Prices return to normal when the timer runs out.', '<div class="countdown" data-countdown="+2d">Ends in 2 days</div>', id_='deals-title')}
+    {section_head('Deals ending soon', 'Prices return to normal when the timer runs out.', '<div class="countdown" data-countdown="+2d">Ends in 2 days</div>', id_='deals-title', eyebrow='Limited time')}
     {grid(['slate', 'echo', 'drift', 'aero'])}
   </div>
 </section>
@@ -784,7 +808,7 @@ def home3():
 <!-- Bundle Start -->
 <section class="section section--surface" id="bundle" aria-labelledby="bundle-title">
   <div class="container">
-    {section_head('Complete your desk setup', 'Buy the monitor, keyboard and power bank together and save $48.', id_='bundle-title')}
+    {section_head('Complete your desk setup', 'Buy the monitor, keyboard and power bank together and save $48.', id_='bundle-title', eyebrow='Bundle and save')}
     <div class="bundle">
       {b}
       <div class="bundle__total">
@@ -800,7 +824,7 @@ def home3():
 <!-- Popular Products Start -->
 <section class="section" aria-labelledby="popular-title">
   <div class="container">
-    {section_head('Popular right now', right='<a class="text-btn" href="shop.html">View all</a>', id_='popular-title')}
+    {section_head('Popular right now', right='<a class="text-btn" href="shop.html">View all</a>', id_='popular-title', eyebrow='Trending')}
     {grid(['nova', 'orbit', 'frame', 'pulse', 'lumen', 'vector', 'key75', 'arc'])}
   </div>
 </section>
@@ -809,7 +833,7 @@ def home3():
 <!-- Reviews Start -->
 <section class="section section--surface" aria-labelledby="quotes-title">
   <div class="container">
-    {section_head('What customers say', 'Rated 4.8 out of 5 from 3,400 verified reviews.', id_='quotes-title')}
+    {section_head('What customers say', 'Rated 4.8 out of 5 from 3,400 verified reviews.', id_='quotes-title', eyebrow='4.8 / 5 rating')}
     <div class="quotes">{q}</div>
   </div>
 </section>

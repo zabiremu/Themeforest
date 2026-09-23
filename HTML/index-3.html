@@ -7,13 +7,9 @@
     <meta
       name="description"
       content="Shop electronics by category: audio, phones, laptops, wearables, gaming and more.">
-    <meta name="theme-color" content="#FFFFFF">
+    <meta name="theme-color" content="#0D0E12">
     <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;display=swap"
-      rel="stylesheet">
+    <link rel="preload" href="assets/fonts/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="assets/css/style.css">
     <noscript
       ><style>
@@ -126,6 +122,17 @@
           stroke-linejoin="round"
         >
           <path d="M9 6l6 6-6 6" />
+        </symbol>
+        <symbol
+          id="i-arrow-right"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.75"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M5 12h14M13 5.5l6.5 6.5-6.5 6.5" />
         </symbol>
         <symbol
           id="i-arrow-up"
@@ -373,7 +380,7 @@
             <svg aria-hidden="true"><use href="#i-menu"></use></svg>
           </button>
           <a class="site-header__logo" href="index.html"
-            ><img src="assets/images/logo.svg" alt="Ohmly home" width="120" height="32"></a>
+            ><img src="assets/images/logo.svg" alt="Ohmly home" width="132" height="36"></a>
 
           <nav class="main-nav" aria-label="Main">
             <ul class="main-nav__list">
@@ -509,10 +516,13 @@
         <div class="container mosaic__grid">
           <div class="mosaic__tile mosaic__tile--lead">
             <div>
+              <p class="eyebrow">1,200+ products</p>
               <h1 id="hero-title">Tech for work, play and everything between.</h1>
               <p>Browse 1,200 products by category, compare specs side by side, and get free shipping over $99.</p>
             </div>
-            <a class="btn btn--light" href="shop.html">Shop all products</a>
+            <a class="btn btn--primary" href="shop.html"
+              >Shop all products<svg aria-hidden="true"><use href="#i-arrow-right"></use></svg
+            ></a>
             <img src="assets/images/hero/headphones-on-color.svg" alt="" width="400" height="400">
           </div>
           <a class="mosaic__tile" href="shop.html"
@@ -537,6 +547,7 @@
         <div class="container">
           <div class="section-head">
             <div>
+              <p class="eyebrow">Limited time</p>
               <h2 id="deals-title">Deals ending soon</h2>
               <p>Prices return to normal when the timer runs out.</p>
             </div>
@@ -816,6 +827,7 @@
         <div class="container">
           <div class="section-head">
             <div>
+              <p class="eyebrow">Bundle and save</p>
               <h2 id="bundle-title">Complete your desk setup</h2>
               <p>Buy the monitor, keyboard and power bank together and save $48.</p>
             </div>
@@ -866,7 +878,10 @@
       <section class="section" aria-labelledby="popular-title">
         <div class="container">
           <div class="section-head">
-            <div><h2 id="popular-title">Popular right now</h2></div>
+            <div>
+              <p class="eyebrow">Trending</p>
+              <h2 id="popular-title">Popular right now</h2>
+            </div>
             <a class="text-btn" href="shop.html">View all</a>
           </div>
           <div class="product-grid">
@@ -1362,6 +1377,7 @@
         <div class="container">
           <div class="section-head">
             <div>
+              <p class="eyebrow">4.8 / 5 rating</p>
               <h2 id="quotes-title">What customers say</h2>
               <p>Rated 4.8 out of 5 from 3,400 verified reviews.</p>
             </div>
@@ -1392,7 +1408,10 @@
       <section class="section section--tight" aria-labelledby="brands-title">
         <div class="container">
           <div class="section-head">
-            <div><h2 id="brands-title">Brands we carry</h2></div>
+            <div>
+              <p class="eyebrow">Official retailer</p>
+              <h2 id="brands-title">Brands we carry</h2>
+            </div>
             <a class="text-btn" href="shop.html">Shop by brand</a>
           </div>
           <div class="brands">
@@ -1418,7 +1437,8 @@
         <div class="container">
           <div class="newsletter-band">
             <div>
-              <h2 id="newsletter-title">Get 10% off your first order</h2>
+              <p class="eyebrow eyebrow--dark">Newsletter</p>
+              <h2 id="newsletter-title">Get <span class="mark">10% off</span> your first order</h2>
               <p>New arrivals, honest reviews and member-only deals, twice a month.</p>
             </div>
             <form
@@ -1454,8 +1474,8 @@
               class="footer-logo"
               src="assets/images/logo-light.svg"
               alt="Ohmly"
-              width="120"
-              height="32"
+              width="132"
+              height="36"
               loading="lazy">
             <p>Electronics picked, tested and explained, with specs you can compare at a glance.</p>
             <ul class="social-links">
@@ -1514,6 +1534,7 @@
           </div>
         </div>
       </div>
+      <p class="site-footer__wordmark" aria-hidden="true">ohmly</p>
       <div class="container site-footer__bottom">
         <p>&copy; 2026 Ohmly. All rights reserved.</p>
         <p class="secure-note">

@@ -5,8 +5,31 @@ import os
 
 ROOT = os.path.join(os.path.dirname(__file__), "..", "HTML", "assets", "images")
 
-DARK = {"body": "#2A2F3A", "mid": "#4A5160", "deep": "#16181D", "screen": "#E8ECFF", "line": "#B9C3F5", "accent": "#2B4EFF"}
-LIGHT = {"body": "#C9CDD4", "mid": "#A3A9B5", "deep": "#7C8492", "screen": "#FFFFFF", "line": "#B9C3F5", "accent": "#2B4EFF"}
+# Fills point at gradients defined in defs(); every SVG file carries its own copy.
+LIME = "#C6F432"
+DARK = {"body": "url(#gb)", "mid": "url(#gm)", "deep": "url(#gd)", "screen": "url(#gs)", "line": "#3A4254", "accent": LIME}
+LIGHT = DARK  # products keep one finish; backgrounds do the contrast work
+
+
+def defs(tone="dark"):
+    body = ("#4A5263", "#1A1D25") if tone == "dark" else ("#F4F5F7", "#B9BEC8")
+    mid = ("#6B7385", "#2F3542") if tone == "dark" else ("#DDE0E6", "#9EA4B0")
+    return ('<defs>'
+            f'<linearGradient id="gb" x1="0" y1="0" x2="0.35" y2="1"><stop offset="0" stop-color="{body[0]}"/><stop offset="1" stop-color="{body[1]}"/></linearGradient>'
+            f'<linearGradient id="gm" x1="0" y1="0" x2="0.3" y2="1"><stop offset="0" stop-color="{mid[0]}"/><stop offset="1" stop-color="{mid[1]}"/></linearGradient>'
+            '<linearGradient id="gd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#20242E"/><stop offset="1" stop-color="#0B0D12"/></linearGradient>'
+            '<linearGradient id="gs" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#232937"/><stop offset="1" stop-color="#0E1117"/></linearGradient>'
+            '<linearGradient id="gl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></linearGradient>'
+            '<filter id="sh" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="18" stdDeviation="16" flood-color="#0B0D12" flood-opacity=".28"/></filter>'
+            '</defs>')
+
+
+def product(kind, tone="dark"):
+    """Product art with depth: gradient finish, soft shadow and a top sheen."""
+    art = draw(kind)
+    return (defs(tone) + '<ellipse cx="200" cy="364" rx="118" ry="10" fill="#0B0D12" opacity=".14"/>'
+            f'<g filter="url(#sh)">{art}</g>'
+            f'<g opacity=".5" style="mix-blend-mode:screen">{art.replace("url(#gb)", "url(#gl)").replace("url(#gm)", "none").replace("url(#gd)", "none").replace("url(#gs)", "none")}</g>')
 
 
 def draw(kind, c=DARK):
@@ -99,24 +122,23 @@ PRODUCTS = ["headphones", "headphones-side", "headphones-case", "headphones-deta
             "watch", "speaker", "controller", "tablet", "camera", "keyboard", "powerbank", "monitor"]
 
 for k in PRODUCTS:
-    write(f"products/{k}.svg", svg(400, 400, draw(k), k.replace("-", " ").title() + " placeholder"))
+    write(f"products/{k}.svg", svg(400, 400, product(k), k.replace("-", " ").title() + " placeholder"))
 
 for name, k in [("audio", "headphones"), ("phones", "phone"), ("laptops", "laptop"), ("wearables", "watch"),
                 ("gaming", "controller"), ("cameras", "camera")]:
-    write(f"categories/{name}.svg", svg(400, 400, draw(k), name.title() + " category placeholder"))
+    write(f"categories/{name}.svg", svg(400, 400, product(k), name.title() + " category placeholder"))
 
 # Hero art
-shadow = '<ellipse cx="300" cy="418" rx="170" ry="14" fill="#16181D" opacity=".08"/>'
-write("hero/hero-headphones.svg", svg(600, 450, shadow + f'<g transform="translate(300 235) scale(1.35) translate(-200 -190)">{draw("headphones")}</g>', "Headphones placeholder"))
-write("hero/laptop-on-dark.svg", svg(400, 400, draw("laptop", LIGHT), "Laptop placeholder"))
-write("hero/headphones-on-color.svg", svg(400, 400, draw("headphones", LIGHT), "Headphones placeholder"))
+write("hero/hero-headphones.svg", svg(600, 450, '<g transform="translate(300 225) scale(1.35) translate(-200 -200)">' + product("headphones", "light") + '</g>', "Headphones placeholder"))
+write("hero/laptop-on-dark.svg", svg(400, 400, product("laptop", "light"), "Laptop placeholder"))
+write("hero/headphones-on-color.svg", svg(400, 400, product("headphones"), "Headphones placeholder"))
 
 # Blog covers
-covers = [("blog-1", "headphones", "#E8ECFF"), ("blog-2", "laptop", "#EEF0F3"), ("blog-3", "monitor", "#DDE3EA"),
-          ("blog-4", "watch", "#EFE8DC"), ("blog-5", "camera", "#E3E8F0"), ("blog-6", "powerbank", "#E8ECFF")]
+covers = [("blog-1", "headphones", "#E6F7B0"), ("blog-2", "laptop", "#E4E4DE"), ("blog-3", "monitor", "#DCDDE3"),
+          ("blog-4", "watch", "#EFE9DF"), ("blog-5", "camera", "#E4E4DE"), ("blog-6", "powerbank", "#E6F7B0")]
 for name, k, bg in covers:
-    inner = (f'<rect width="1200" height="750" fill="{bg}"/><circle cx="960" cy="140" r="220" fill="#fff" opacity=".45"/>'
-             f'<g transform="translate(600 385) scale(1.55) translate(-200 -200)">{draw(k)}</g>')
+    inner = (f'<rect width="1200" height="750" fill="{bg}"/><circle cx="600" cy="375" r="250" fill="#fff" opacity=".55"/>'
+             f'<g transform="translate(600 385) scale(1.55) translate(-200 -200)">{product(k)}</g>')
     write(f"blog/{name}.svg", svg(1200, 750, inner, "Blog cover placeholder"))
 
 # Fictional brand wordmarks
@@ -132,8 +154,13 @@ def logo(color, mark):
     return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 32" width="120" height="32" role="img"><title>Ohmly</title>'
             f'<path d="M3 28h7v-3.2a10.5 10.5 0 1 1 10 0V28h7" fill="none" stroke="{mark}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>'
             f'<text x="35" y="24" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" letter-spacing="-0.5" fill="{color}">ohmly</text></svg>\n')
-write("logo.svg", logo("#16181D", "#2B4EFF"))
-write("logo-light.svg", logo("#FFFFFF", "#8FA3FF"))
-write("favicon.svg", '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="#2B4EFF"/>'
-      '<path d="M7 25h5v-2.6a8 8 0 1 1 8 0V25h5" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>\n')
+def logo2(text, tile, mark):
+    return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 132 36" width="132" height="36" role="img"><title>Ohmly</title>'
+            f'<rect width="36" height="36" rx="11" fill="{tile}"/>'
+            f'<path d="M8.5 27h5.5v-3a8.2 8.2 0 1 1 8 0v3h5.5" fill="none" stroke="{mark}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>'
+            f'<text x="44" y="26" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" letter-spacing="-1" fill="{text}">ohmly</text></svg>\n')
+write("logo.svg", logo2("#0D0E12", "#0D0E12", LIME))
+write("logo-light.svg", logo2("#FFFFFF", LIME, "#0D0E12"))
+write("favicon.svg", '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="9" fill="#0D0E12"/>'
+      '<path d="M7 25h5v-2.6a8 8 0 1 1 8 0V25h5" fill="none" stroke="#C6F432" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>\n')
 print("images written")

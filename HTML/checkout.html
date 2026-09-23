@@ -5,13 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Checkout | Ohmly</title>
     <meta name="description" content="Enter your details to complete your order.">
-    <meta name="theme-color" content="#FFFFFF">
+    <meta name="theme-color" content="#0D0E12">
     <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;display=swap"
-      rel="stylesheet">
+    <link rel="preload" href="assets/fonts/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="assets/css/style.css">
     <noscript
       ><style>
@@ -124,6 +120,17 @@
           stroke-linejoin="round"
         >
           <path d="M9 6l6 6-6 6" />
+        </symbol>
+        <symbol
+          id="i-arrow-right"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.75"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M5 12h14M13 5.5l6.5 6.5-6.5 6.5" />
         </symbol>
         <symbol
           id="i-arrow-up"
@@ -371,7 +378,7 @@
             <svg aria-hidden="true"><use href="#i-menu"></use></svg>
           </button>
           <a class="site-header__logo" href="index.html"
-            ><img src="assets/images/logo.svg" alt="Ohmly home" width="120" height="32"></a>
+            ><img src="assets/images/logo.svg" alt="Ohmly home" width="132" height="36"></a>
 
           <nav class="main-nav" aria-label="Main">
             <ul class="main-nav__list">
@@ -745,8 +752,8 @@
               class="footer-logo"
               src="assets/images/logo-light.svg"
               alt="Ohmly"
-              width="120"
-              height="32"
+              width="132"
+              height="36"
               loading="lazy">
             <p>Electronics picked, tested and explained, with specs you can compare at a glance.</p>
             <ul class="social-links">
@@ -805,6 +812,7 @@
           </div>
         </div>
       </div>
+      <p class="site-footer__wordmark" aria-hidden="true">ohmly</p>
       <div class="container site-footer__bottom">
         <p>&copy; 2026 Ohmly. All rights reserved.</p>
         <p class="secure-note">

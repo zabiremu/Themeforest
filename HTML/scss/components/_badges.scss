@@ -1,20 +1,21 @@
 .badge {
-  display: inline-flex; align-items: center; height: 24px; padding: 0 8px; border-radius: var(--radius-xs);
-  font-size: 12px; font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums;
+  display: inline-flex; align-items: center; height: 26px; padding: 0 10px; border-radius: var(--radius-pill);
+  font-size: 12px; font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; letter-spacing: 0.01em;
   &--sale { background: var(--color-sale); color: #fff; }
-  &--new { background: var(--color-text); color: #fff; }
-  &--stock { background: #EAF6EE; color: var(--color-success); }
+  &--new { background: var(--color-accent); color: var(--color-text); }
+  &--stock { background: #E5F5EA; color: var(--color-success); }
   &--out { background: var(--color-bg); color: var(--color-muted); }
 }
 .rating {
   display: inline-flex; align-items: center; gap: 6px; font-size: var(--fs-sm); color: var(--color-muted);
   &__stars { display: inline-flex; gap: 1px; color: var(--color-rating);
-    svg { width: 15px; height: 15px; fill: currentColor; stroke: none; }
-    .is-empty { color: #CDD1D8; } }
+    svg { width: 14px; height: 14px; fill: currentColor; stroke: none; }
+    .is-empty { color: #D6D6CF; } }
 }
+.rating > span { white-space: nowrap; }
 .price {
   font-variant-numeric: tabular-nums; display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;
-  &__now { font-weight: 700; font-size: 18px; }
+  &__now { font-family: var(--font-display); font-weight: 700; font-size: 20px; letter-spacing: -0.02em; }
   &__was { color: var(--color-muted); font-size: var(--fs-sm); }
   ins { text-decoration: none; }
   &--sale &__now { color: var(--color-sale); }

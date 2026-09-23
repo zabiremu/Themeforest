@@ -5,21 +5,25 @@
 // ==========================================================
 
 // Colors
-$color-bg:           #F4F5F7; // page background
+$color-bg:           #F3F3EF; // page background (warm stone)
 $color-surface:      #FFFFFF; // cards, header, drawers
-$color-surface-alt:  #EEF0F3; // image panels
-$color-text:         #16181D; // headings and body text
-$color-muted:        #5B616E; // labels, secondary text
-$color-border:       #DADDE3; // lines and borders
-$color-primary:      #2B4EFF; // buttons, links, selected states
-$color-primary-dark: #1D3AD9; // primary hover
-$color-primary-soft: #E8ECFF; // tinted panels
-$color-sale:         #C2410C; // sale badges and prices
-$color-success:      #15803D; // in stock, success messages
-$color-rating:       #B45309; // rating stars
+$color-surface-alt:  #ECECE6; // product image stages
+$color-text:         #0D0E12; // headings and body text (ink)
+$color-muted:        #62656E; // labels, secondary text
+$color-border:       #E2E2DB; // lines and borders
+$color-primary:      #0D0E12; // buttons, links, selected states
+$color-primary-dark: #000000; // primary hover
+$color-primary-soft: #EEFBC6; // tinted panels
+$color-accent:       #C6F432; // "volt" signature accent, always paired with ink text
+$color-accent-dark:  #B2E01E; // accent hover
+$color-sale:         #E5391A; // sale badges and prices
+$color-success:      #16803C; // in stock, success messages
+$color-rating:       #E09A0B; // rating stars
 
 // Typography
-$font-body: "Geist", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+$font-body:    "Geist", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+$font-display: "Bricolage Grotesque", "Geist", system-ui, sans-serif;
+$font-mono:    "Geist Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
 
 // Layout
 $container-max: 1320px;

@@ -2,10 +2,11 @@ Ohmly - Electronics eCommerce HTML Template
 Third-party assets and licenses
 =========================================
 
-1. Geist (font)
-   Source:  https://fonts.google.com/specimen/Geist
+1. Fonts (bundled in HTML/assets/fonts, license files included next to them)
+   - Bricolage Grotesque  https://fonts.google.com/specimen/Bricolage+Grotesque
+   - Geist                https://fonts.google.com/specimen/Geist
+   - Geist Mono           https://fonts.google.com/specimen/Geist+Mono
    License: SIL Open Font License 1.1 (https://openfontlicense.org)
-   Loaded from Google Fonts. Not bundled in the download.
 
 2. Icons
    Original inline SVG icons made for this template.

@@ -9,19 +9,32 @@ body {
   text-rendering: optimizeLegibility;
 }
 h1, h2, h3, h4, h5, h6 { font-weight: 600; line-height: 1.2; letter-spacing: -0.015em; }
-h1 { font-size: clamp(2.125rem, 3.2vw + 1rem, var(--fs-4xl)); line-height: 1.06; letter-spacing: -0.03em; }
-h2 { font-size: clamp(1.5625rem, 1.6vw + 1rem, var(--fs-2xl)); letter-spacing: -0.02em; }
+// Display face for the big moments: page titles and section titles
+h1, h2, .display { font-family: var(--font-display); font-weight: 700; font-optical-sizing: auto; }
+h1 { font-size: clamp(2.5rem, 4.6vw + 1rem, var(--fs-4xl)); line-height: 0.98; letter-spacing: -0.04em; }
+h2 { font-size: clamp(1.875rem, 2.2vw + 1rem, var(--fs-2xl)); line-height: 1.05; letter-spacing: -0.035em; }
 h3 { font-size: var(--fs-lg); }
 h4 { font-size: var(--fs-md); }
 small { font-size: var(--fs-sm); }
 strong, b { font-weight: 600; }
-:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
-::selection { background: var(--color-primary-soft); }
+:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 3px; }
+::selection { background: var(--color-accent); color: var(--color-text); }
+
+// Small mono label above section titles: "● New this week"
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px; margin-bottom: 14px;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-muted);
+  &::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--color-accent); box-shadow: 0 0 0 3px rgba(198, 244, 50, 0.25); }
+  &--dark { color: #B7BAC2; }
+}
+// Highlighted word inside a heading
+.mark { display: inline-block; padding: 0 0.14em 0.04em; margin: 0 -0.02em; border-radius: 0.14em; background: var(--color-accent); color: var(--color-text); transform: rotate(-1.5deg); }
+.mono { font-family: var(--font-mono); }
 
 .lead { font-size: var(--fs-lg); line-height: 1.5; color: var(--color-muted); max-width: 34em; }
 .text-muted { color: var(--color-muted); }
 .tabular { font-variant-numeric: tabular-nums; }
-.link { color: var(--color-primary); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.link { color: var(--color-text); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
 .link:hover { text-decoration: none; }
 
 // Long-form text (blog, policies)
