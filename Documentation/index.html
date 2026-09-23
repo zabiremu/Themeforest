@@ -417,6 +417,14 @@ tr:last-child td { border-bottom: 0; }
 --font-body: "Your Body Font", system-ui, -apple-system, sans-serif;</code></pre>
   </div>
 
+  <h3>Changing the map</h3>
+  <p>The contact page shows a Google Map. No API key or account is needed. Open <code>contact.html</code>, find the <code>map-card</code> block and replace the address after <code>q=</code> in the map link and after <code>destination=</code> in the Directions link. Use <code>+</code> instead of spaces:</p>
+  <div class="code">
+    <span class="code__label">HTML</span>
+<pre><code>src="https://maps.google.com/maps?q=10+Downing+Street,+London&amp;amp;z=15&amp;amp;output=embed"</code></pre>
+  </div>
+  <p><code>z=15</code> is the zoom level (higher is closer). Also update the store name and address in the card below the map.</p>
+
   <h3>Changing menu items</h3>
   <p>The main menu is inside <code>&lt;nav class="main-nav"&gt;</code> in the header. Each link is one list item:</p>
   <div class="code">

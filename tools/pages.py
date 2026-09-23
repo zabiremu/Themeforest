@@ -1528,7 +1528,17 @@ def contact_page():
         <li><span class="icon">{icon('mail')}</span><p>Email<span><a href="mailto:hello@example.com">hello@example.com</a></span></p></li>
         <li><span class="icon">{icon('clock')}</span><p>Hours<span>Monday to Sunday, 9:00 to 18:00</span></p></li>
       </ul>
-      <div class="map-placeholder"><p>Map placeholder. Replace this block with an embedded map from your map provider.</p></div>
+      <!-- Map: change the address after "q=" in both links (use + for spaces) -->
+      <div class="map-card">
+        <iframe class="map-card__frame" title="Map showing the Ohmly store at 221 Market Street, San Francisco"
+          src="https://maps.google.com/maps?q=221+Market+Street,+San+Francisco,+CA+94105&amp;z=15&amp;output=embed"
+          loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        <div class="map-card__info">
+          <span class="map-card__pin">{icon('pin')}</span>
+          <p><strong>Ohmly Store</strong><span>221 Market Street, San Francisco</span></p>
+          <a class="btn btn--primary btn--sm" href="https://www.google.com/maps/dir/?api=1&amp;destination=221+Market+Street,+San+Francisco,+CA+94105" target="_blank" rel="noopener">Directions</a>
+        </div>
+      </div>
     </div>
     <div class="form-card">
       <h2>Send us a message</h2>
