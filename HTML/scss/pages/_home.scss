@@ -81,9 +81,9 @@
     img { position: absolute; right: -6%; bottom: -8%; width: 62%; max-width: 460px; opacity: 1; }
     .btn-row { position: relative; z-index: 1; } }
   &__side { display: grid; gap: 16px; @include up(md) { grid-template-columns: 1fr 1fr; } @include up(lg) { grid-template-columns: 1fr; } }
-  @include down(md) { &__main img { position: static; width: 70%; margin: 0 auto -48px; } }
+  @include down(lg) { &__main { min-height: 0; } &__main img { position: static; justify-self: end; width: 70%; max-width: 360px; margin: 0 -8px -48px 0; } }
 }
-.promo-tile { position: relative; display: grid; grid-template-columns: 1fr 140px; align-items: center; gap: 16px; padding: 28px; border-radius: var(--radius-lg); background: var(--color-surface); border: 1px solid var(--color-border); transition: border-color 0.2s;
+.promo-tile { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) 96px; align-items: center; gap: 12px; padding: 20px; @include up(sm) { grid-template-columns: minmax(0, 1fr) 140px; gap: 16px; padding: 28px; } border-radius: var(--radius-lg); background: var(--color-surface); border: 1px solid var(--color-border); transition: border-color 0.2s;
   &--tint { background: var(--color-primary-soft); border-color: transparent; }
   h2 { font-size: var(--fs-xl); } p { color: var(--color-muted); margin-top: 6px; font-size: 15px; }
   .text-btn { display: inline-block; margin-top: 14px; }
@@ -95,9 +95,13 @@
 /* Best sellers ranked list */
 .ranked { list-style: none; display: grid; gap: 0; counter-reset: rank; border-top: 1px solid var(--color-border);
   @include up(lg) { grid-template-columns: 1fr 1fr; column-gap: 48px; }
-  li { counter-increment: rank; display: grid; grid-template-columns: 28px 72px 1fr auto; gap: 16px; align-items: center; padding: 16px 0; border-bottom: 1px solid var(--color-border);
+  li { counter-increment: rank; display: grid; grid-template-columns: 20px 56px minmax(0, 1fr); gap: 4px 12px;
+    @include up(sm) { grid-template-columns: 28px 72px minmax(0, 1fr) auto; gap: 16px; } align-items: center; padding: 16px 0; border-bottom: 1px solid var(--color-border);
     &::before { content: counter(rank); font-weight: 600; color: var(--color-muted); font-variant-numeric: tabular-nums; }
-    img { width: 72px; height: 72px; padding: 8px; background: var(--color-surface-alt); border-radius: var(--radius-sm); }
+    // Phones: price drops under the title so nothing is squeezed
+    > .price { grid-column: 3; @include up(sm) { grid-column: auto; } }
+    &::before { grid-row: span 2; @include up(sm) { grid-row: auto; } } img { grid-row: span 2; @include up(sm) { grid-row: auto; } }
+    img { width: 100%; max-width: 72px; height: auto; aspect-ratio: 1; padding: 6px; background: var(--color-surface-alt); border-radius: var(--radius-sm); }
     h3 { font-size: var(--fs-md); letter-spacing: 0; a:hover { color: var(--color-primary); } }
     p { font-size: var(--fs-sm); color: var(--color-muted); } } }
 
@@ -112,8 +116,15 @@
   &__tile--lead { grid-column: 1 / -1; background: var(--color-primary); border-color: var(--color-primary); color: #fff; min-height: 340px; padding: 32px;
     @include up(lg) { grid-column: span 2; grid-row: span 2; padding: 44px; }
     h1 { max-width: 8em; position: relative; z-index: 1; } p { color: #DDE3FF; max-width: 22em; margin-top: 12px; position: relative; z-index: 1; }
-    span { color: #fff; } img { width: 58%; right: -4%; bottom: -6%; } .btn { position: relative; z-index: 1; align-self: flex-start; }
+    span { color: #fff; } img { width: 46%; right: -4%; bottom: -6%; } .btn { position: relative; z-index: 1; align-self: flex-start; }
     &:hover { border-color: var(--color-primary); } }
+  // Phones and tablets: art sits below the copy instead of behind it
+  @include down(lg) {
+    &__tile { justify-content: flex-start; gap: 4px; min-height: 180px;
+      img { width: 52%; right: -6%; bottom: -10%; } }
+    &__tile--lead { min-height: 0; gap: 20px;
+      img { position: relative; right: auto; bottom: auto; width: 60%; max-width: 260px; align-self: flex-end; margin: -8px -12px -24px 0; } }
+  }
 }
 
 /* Bundle builder */

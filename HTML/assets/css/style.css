@@ -2,7 +2,7 @@
 /*------------------------------------------------------------------
   Template Name : Ohmly - Electronics eCommerce HTML Template
   Version       : 1.0.0
-  Author        : Zabir Raihan
+  Author        : Zabir
 
   TABLE OF CONTENTS
   1. Theme settings (:root custom properties)
@@ -111,6 +111,13 @@ table {
 
 [hidden] {
   display: none !important;
+}
+
+:where(.cart-layout, .checkout-layout, .account-layout, .tracking-layout,
+.shop-layout, .product-layout, .contact-layout, .blog-layout, .faq-layout,
+.hero-split__grid, .hero-split__side, .promo-pair, .promo-tile,
+.address-grid, .quotes, .bundle, .hero__grid, .site-footer__grid) > * {
+  min-width: 0;
 }
 
 html {
@@ -811,6 +818,7 @@ strong, b {
 }
 .btn--light {
   background: var(--color-surface);
+  color: var(--color-text);
   border-color: var(--color-border);
 }
 @media (hover: hover) {
@@ -1291,6 +1299,10 @@ select.form-control {
 
 .no-quickview [data-quick-view] {
   display: none;
+}
+
+.rating > span {
+  white-space: nowrap;
 }
 
 .overlay {
@@ -1991,6 +2003,7 @@ select.form-control {
 }
 
 .table-scroll {
+  position: relative;
   overflow-x: auto;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
@@ -2073,6 +2086,10 @@ select.form-control {
 }
 .brands a:hover img {
   opacity: 1;
+}
+
+.data-table:not(.cart-table) :is(th, td) {
+  white-space: nowrap;
 }
 
 /* Home 1: annotated hero */
@@ -2465,21 +2482,35 @@ select.form-control {
     grid-template-columns: 1fr;
   }
 }
-@media (max-width: 767.98px) {
+@media (max-width: 991.98px) {
+  .hero-split__main {
+    min-height: 0;
+  }
   .hero-split__main img {
     position: static;
+    justify-self: end;
     width: 70%;
-    margin: 0 auto -48px;
+    max-width: 360px;
+    margin: 0 -8px -48px 0;
   }
 }
 
 .promo-tile {
   position: relative;
   display: grid;
-  grid-template-columns: 1fr 140px;
+  grid-template-columns: minmax(0, 1fr) 96px;
   align-items: center;
-  gap: 16px;
-  padding: 28px;
+  gap: 12px;
+  padding: 20px;
+}
+@media (min-width: 576px) {
+  .promo-tile {
+    grid-template-columns: minmax(0, 1fr) 140px;
+    gap: 16px;
+    padding: 28px;
+  }
+}
+.promo-tile {
   border-radius: var(--radius-lg);
   background: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -2536,8 +2567,16 @@ select.form-control {
 .ranked li {
   counter-increment: rank;
   display: grid;
-  grid-template-columns: 28px 72px 1fr auto;
-  gap: 16px;
+  grid-template-columns: 20px 56px minmax(0, 1fr);
+  gap: 4px 12px;
+}
+@media (min-width: 576px) {
+  .ranked li {
+    grid-template-columns: 28px 72px minmax(0, 1fr) auto;
+    gap: 16px;
+  }
+}
+.ranked li {
   align-items: center;
   padding: 16px 0;
   border-bottom: 1px solid var(--color-border);
@@ -2548,10 +2587,36 @@ select.form-control {
   color: var(--color-muted);
   font-variant-numeric: tabular-nums;
 }
+.ranked li > .price {
+  grid-column: 3;
+}
+@media (min-width: 576px) {
+  .ranked li > .price {
+    grid-column: auto;
+  }
+}
+.ranked li::before {
+  grid-row: span 2;
+}
+@media (min-width: 576px) {
+  .ranked li::before {
+    grid-row: auto;
+  }
+}
 .ranked li img {
-  width: 72px;
-  height: 72px;
-  padding: 8px;
+  grid-row: span 2;
+}
+@media (min-width: 576px) {
+  .ranked li img {
+    grid-row: auto;
+  }
+}
+.ranked li img {
+  width: 100%;
+  max-width: 72px;
+  height: auto;
+  aspect-ratio: 1;
+  padding: 6px;
   background: var(--color-surface-alt);
   border-radius: var(--radius-sm);
 }
@@ -2657,7 +2722,7 @@ select.form-control {
   color: #fff;
 }
 .mosaic__tile--lead img {
-  width: 58%;
+  width: 46%;
   right: -4%;
   bottom: -6%;
 }
@@ -2668,6 +2733,31 @@ select.form-control {
 }
 .mosaic__tile--lead:hover {
   border-color: var(--color-primary);
+}
+@media (max-width: 991.98px) {
+  .mosaic__tile {
+    justify-content: flex-start;
+    gap: 4px;
+    min-height: 180px;
+  }
+  .mosaic__tile img {
+    width: 52%;
+    right: -6%;
+    bottom: -10%;
+  }
+  .mosaic__tile--lead {
+    min-height: 0;
+    gap: 20px;
+  }
+  .mosaic__tile--lead img {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    width: 60%;
+    max-width: 260px;
+    align-self: flex-end;
+    margin: -8px -12px -24px 0;
+  }
 }
 
 /* Bundle builder */
@@ -3408,9 +3498,10 @@ select.form-control {
     display: none;
   }
   .cart-table tr {
+    position: relative;
     display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 8px 12px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
     padding: 16px;
     border-bottom: 1px solid var(--color-border);
   }
@@ -3419,16 +3510,25 @@ select.form-control {
     border: 0;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 8px;
   }
   .cart-table td[data-label]::before {
     content: attr(data-label);
     color: var(--color-muted);
     font-size: var(--fs-sm);
-    min-width: 64px;
   }
   .cart-table td:first-child {
-    grid-column: 1/-1;
+    padding-right: 44px;
+    margin-bottom: 4px;
+  }
+  .cart-table .cart-product {
+    min-width: 0;
+  }
+  .cart-table td:has(.remove-btn) {
+    position: absolute;
+    top: 12px;
+    right: 8px;
   }
   .cart-table tbody tr:last-child {
     border-bottom: 0;

@@ -4,7 +4,7 @@ set -e
 cd "$(dirname "$0")/.."
 python3 tools/images.py
 python3 tools/pages.py
-npx --yes prettier@3 --log-level warn --print-width 120 --html-whitespace-sensitivity ignore --write "HTML/*.html"
+npx --yes prettier@3 --log-level warn --print-width 120 --html-whitespace-sensitivity css --write "HTML/*.html"
 python3 - <<'PY'
 import re, glob
 for f in glob.glob("HTML/*.html"):

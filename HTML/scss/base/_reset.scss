@@ -9,3 +9,13 @@ button, input, select, textarea { font: inherit; color: inherit; }
 button { cursor: pointer; background: none; border: 0; padding: 0; }
 table { border-collapse: collapse; width: 100%; }
 [hidden] { display: none !important; }
+
+// Grid children default to min-width:auto, so a wide table or long
+// word inside a single-column grid pushes the page sideways on phones.
+// Letting layout children shrink keeps every page inside the viewport.
+:where(
+  .cart-layout, .checkout-layout, .account-layout, .tracking-layout,
+  .shop-layout, .product-layout, .contact-layout, .blog-layout, .faq-layout,
+  .hero-split__grid, .hero-split__side, .promo-pair, .promo-tile,
+  .address-grid, .quotes, .bundle, .hero__grid, .site-footer__grid
+) > * { min-width: 0; }
