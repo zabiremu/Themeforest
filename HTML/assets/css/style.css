@@ -1657,6 +1657,60 @@ img[data-photo] {
   transform: none;
 }
 
+@media (min-width: 992px) {
+  .hero-split__main:has(img[data-photo]) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr);
+    column-gap: 32px;
+  }
+  .hero-split__main:has(img[data-photo]) > div {
+    grid-column: 1;
+  }
+  .hero-split__main:has(img[data-photo]) img[data-photo] {
+    position: static;
+    grid-column: 2;
+    grid-row: 1/3;
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    aspect-ratio: auto;
+    object-fit: cover;
+  }
+  .mosaic__tile--lead:has(img[data-photo]) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.72fr);
+    grid-auto-rows: min-content;
+    align-content: center;
+    column-gap: 28px;
+  }
+  .mosaic__tile--lead:has(img[data-photo]) > :not(img) {
+    grid-column: 1;
+  }
+  .mosaic__tile--lead:has(img[data-photo]) .btn {
+    justify-self: start;
+    margin-top: 8px;
+  }
+  .mosaic__tile--lead:has(img[data-photo]) h1 {
+    font-size: clamp(2.5rem, 3.4vw, 3.75rem);
+  }
+  .mosaic__tile--lead:has(img[data-photo]) img[data-photo] {
+    position: static;
+    grid-column: 2;
+    grid-row: 1/span 4;
+    align-self: stretch;
+    width: 100%;
+    height: 100%;
+    min-height: 360px;
+    aspect-ratio: auto;
+    object-fit: cover;
+  }
+  .mosaic__tile--lead:has(img[data-photo]):hover img[data-photo] {
+    transform: none;
+  }
+}
+.deal__media {
+  overflow: hidden;
+}
+
 .overlay {
   position: fixed;
   inset: 0;
@@ -3357,6 +3411,7 @@ img[data-photo] {
 }
 .hero-split__main h1 {
   max-width: 9em;
+  margin-block: 4px 16px;
   color: #fff;
   position: relative;
   z-index: 1;

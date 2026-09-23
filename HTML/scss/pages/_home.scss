@@ -97,7 +97,7 @@
   &__main { position: relative; display: grid; align-content: space-between; gap: 32px; min-height: 520px; padding: 32px; border-radius: var(--radius-xl); color: #fff; overflow: hidden;
     background: radial-gradient(460px 360px at 78% 80%, rgba(198, 244, 50, 0.3), transparent 70%), var(--color-text);
     @include up(md) { padding: 48px; }
-    h1 { max-width: 9em; color: #fff; position: relative; z-index: 1; } .mark { color: var(--color-text); }
+    h1 { max-width: 9em; margin-block: 4px 16px; color: #fff; position: relative; z-index: 1; } .mark { color: var(--color-text); }
     p { color: #B7BAC2; max-width: 26em; position: relative; z-index: 1; }
     img { position: absolute; right: -4%; bottom: -6%; width: 52%; max-width: 420px; }
     .btn-row { position: relative; z-index: 1; } }
